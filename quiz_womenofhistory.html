@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Which Feminist Are You?</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 1.5rem;
+    }
+    .question-images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .question-images img {
+      width: 100px;
+      height: auto;
+      border-radius: 10px;
+      border: 2px solid #ff69b4;
+    }
+    .options button, .retake-btn {
+      display: block;
+      margin: 0.5rem auto;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff69b4;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .result {
+      display: none;
+    }
+    .character-images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+    .character-images img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #ff69b4;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Which Feminist Are You?</h1>
+    <div id="quiz"></div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "What’s your ideal weekend activity?",
+        options: [
+          "Reading or writing",
+          "Attending a protest",
+          "Traveling or adventuring",
+          "Volunteering in your community"
+        ],
+        scores: [
+          ["janeAusten", "mayaAngelou"],
+          ["angelaDavis", "gloriaSteinem"],
+          ["ameliaEarhart", "christineJorgensen"],
+          ["michelleObama", "ruthGinsburg"]
+        ],
+        images: ["images/reading.jpg", "images/protest.jpg"]
+      },
+      {
+        question: "What's your favorite way to inspire change?",
+        options: ["through writing", "through protest", "through science", "through leadership", "through nature"],
+        scores: [
+          ["janeAusten", "bellHooks", "mayaAngelou", "audreLorde"],
+          ["angelaDavis", "susanAnthony", "mayaAngelou", "gloriaSteinem", "rosaParks"],
+          ["marieCurie"],
+          ["eleanorRoosevelt", "michelleObama", "ruthGinsburg", "christineJorgensen"],
+          ["janeGoodall", "ameliaEarhart"]
+        ]
+      },
+      {
+        question: "Which quote speaks to you most?",
+        options: [
+          "I am no bird; and no net ensnares me.",
+          "The most common way people give up their power is by thinking they don't have any.",
+          "Well-behaved women seldom make history.",
+          "I am deliberate and afraid of nothing.",
+          "The future belongs to those who believe in the beauty of their dreams.",
+          "If you want something said, ask a man; if you want something done, ask a woman.",
+          "I am not free while any woman is unfree, even when her shackles are very different from my own.",
+          "Science and everyday life cannot and should not be separated."
+        ],
+        scores: [
+          ["janeAusten"],
+          ["bellHooks"],
+          ["eleanorRoosevelt"],
+          ["angelaDavis"],
+          ["eleanorRoosevelt"],
+          ["michelleObama"],
+          ["audreLorde"],
+          ["marieCurie"]
+        ],
+        images: ["images/quotes.jpg"]
+      },
+      {
+        question: "pick a power outfit:",
+        options: ["a flying suit", "a judicial robe", "a bold scarf and glasses", "a microphone and stage", "a fur coat, glamorous jewelry, and a full mug", "a lab coat"],
+        scores: [
+          ["ameliaEarhart"],
+          ["ruthGinsburg"],
+          ["gloriaSteinem"],
+          ["mayaAngelou"],
+          ["christineJorgensen"],
+          ["marieCurie"]
+        ]
+      },
+      {
+        question: "Pick a historical era you feel drawn to:",
+        options: ["The Enlightenment", "The Civil Rights Movement", "The Roaring Twenties", "The Modern Era"],
+        scores: [
+          ["marieCurie", "susanAnthony"],
+          ["rosaParks", "mayaAngelou"],
+          ["christineJorgensen"],
+          ["michelleObama", "ruthGinsburg"]
+        ],
+        images: ["images/history.jpg"]
+      },
+      {
+        question: "what do you think of MEN? (not us failing the bechdel test)",
+        options: [
+          "i love my lil husband/bf/fiance",
+          "ehhh... i tried that a few times.",
+          "literally,, ew",
+          "much prefer women; men have their uses though"
+        ],
+        scores: [
+          ["ameliaEarhart", "michelleObama", "ruthGinsburg", "eleanorRoosevelt"],
+          ["rosaParks", "janeGoodall", "mayaAngelou", "gloriaSteinem"],
+          ["angelaDavis", "christineJorgensen"],
+          ["susanAnthony", "bellHooks", "janeAusten", "audreLorde", "eleanorRoosevelt"]
+        ]
+      },
+      {
+        question: "Which color best represents your personality?",
+        options: ["Bold Red", "Peaceful Blue", "Creative Purple", "Sunny Yellow"],
+        scores: [
+          ["angelaDavis", "rosaParks"],
+          ["eleanorRoosevelt", "ruthGinsburg"],
+          ["janeAusten", "mayaAngelou"],
+          ["michelleObama", "ameliaEarhart"]
+        ],
+        images: ["images/colors.jpg"]
+      },
+      {
+        question: "how do you usually work through a problem?",
+        options: [
+          "call all my friends... let's get this done TOGETHER!",
+          "alert the presses... there'll be a novel or article coming soon",
+          "create a hypothesis, and test it out",
+          "trial and error"
+        ],
+        scores: [
+          ["susanAnthony", "michelleObama", "gloriaSteinem", "eleanorRoosevelt"],
+          ["janeAusten", "bellHooks", "mayaAngelou"],
+          ["marieCurie", "janeGoodall"],
+          ["ruthGinsburg", "ameliaEarhart"]
+        ]
+      },
+      {
+        question: "what is your favorite hobby?",
+        options: [
+          "taking a film camera out to find neat photo opps",
+          "cozying up on the couch to KNIT!!!",
+          "writing in my journal, notes app, or word docs",
+          "anything outside, lets go look for frogs or play sports!",
+          "bitch, who has time for hobbies?"
+        ],
+        scores: [
+          ["christineJorgensen"],
+          ["michelleObama"],
+          ["audreLorde", "angelaDavis", "janeAusten", "bellHooks"],
+          ["ameliaEarhart", "ruthGinsburg", "janeGoodall"],
+          ["marieCurie", "gloriaSteinem"]
+        ],
+        images:["https://drive.google.com/file/d/1FckZT8Hhm511ka0MlrqNo9AcNqBw76xw/view?usp=sharing"]
+      }
+    ];
+
+    const resultMap = {
+      janeAusten: {
+        name: "Jane Austen",
+        image: "images/jane_austen.jpg"
+      },
+      mayaAngelou: {
+        name: "Maya Angelou",
+        image: "images/maya_angelou.jpg"
+      },
+      angelaDavis: {
+        name: "Angela Davis",
+        image: "images/angela_davis.jpg"
+      },
+      gloriaSteinem: {
+        name: "Gloria Steinem",
+        image: "images/gloria_steinem.jpg"
+      },
+      ameliaEarhart: {
+        name: "Amelia Earhart",
+        image: "images/amelia_earhart.jpg"
+      },
+      christineJorgensen: {
+        name: "Christine Jorgensen",
+        image: "images/christine_jorgensen.jpg"
+      },
+      michelleObama: {
+        name: "Michelle Obama",
+        image: "images/michelle_obama.jpg"
+      },
+      ruthGinsburg: {
+        name: "Ruth Bader Ginsburg",
+        image: "images/ruth_ginsburg.jpg"
+      },
+      bellHooks: {
+        name: "bell hooks",
+        image: "images/bell_hooks.jpg"
+      },
+      susanAnthony: {
+        name: "Susan B. Anthony",
+        image: "images/susan_anthony.jpg"
+      },
+      rosaParks: {
+        name: "Rosa Parks",
+        image: "images/rosa_parks.jpg"
+      },
+      marieCurie: {
+        name: "Marie Curie",
+        image: "images/marie_curie.jpg"
+      },
+      eleanorRoosevelt: {
+        name: "Eleanor Roosevelt",
+        image: "images/eleanor_roosevelt.jpg"
+      },
+      audreLorde: {
+        name: "Audre Lorde",
+        image: "images/audre_lorde.jpg"
+      },
+      janeGoodall: {
+        name: "Jane Goodall",
+        image: "images/jane_goodall.jpg"
+      }
+    };
+
+    let currentQuestion = 0;
+    let scores = {};
+
+    function showQuestion() {
+      const quiz = document.getElementById('quiz');
+      quiz.innerHTML = '';
+      if (currentQuestion >= quizData.length) return showResult();
+      const q = quizData[currentQuestion];
+
+      const questionEl = document.createElement('div');
+      questionEl.className = 'question';
+      questionEl.textContent = q.question;
+      quiz.appendChild(questionEl);
+
+      if (q.images && q.images.length > 0) {
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'question-images';
+        q.images.forEach(src => {
+          const img = document.createElement('img');
+          img.src = src;
+          imageContainer.appendChild(img);
+        });
+        quiz.appendChild(imageContainer);
+      }
+
+      const optionsDiv = document.createElement('div');
+      optionsDiv.className = 'options';
+      q.options.forEach((opt, idx) => {
+        const button = document.createElement('button');
+        button.textContent = opt;
+        button.onclick = () => {
+          const keys = q.scores[idx];
+          keys.forEach(key => {
+            scores[key] = (scores[key] || 0) + 1;
+          });
+          currentQuestion++;
+          showQuestion();
+        };
+        optionsDiv.appendChild(button);
+      });
+      quiz.appendChild(optionsDiv);
+    }
+
+    function showResult() {
+      document.getElementById('quiz').style.display = 'none';
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      const sortedResults = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+      const topResult = sortedResults[0][0];
+      const result = resultMap[topResult];
+
+      const additionalImgs = sortedResults.slice(1, 4)
+        .filter(([key]) => resultMap[key])
+        .map(([key]) => `<img src="${resultMap[key].image}" alt="${resultMap[key].name}" title="${resultMap[key].name}" />`)
+        .join('');
+
+      resultDiv.innerHTML = `
+        <h2>You are ${result.name}!</h2>
+        <img src="${result.image}" alt="${result.name}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
+        <div class="character-images">${additionalImgs}</div>
+        <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
+      `;
+    }
+
+    function restartQuiz() {
+      currentQuestion = 0;
+      scores = {};
+      document.getElementById('quiz').style.display = 'block';
+      document.getElementById('result').style.display = 'none';
+      showQuestion();
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
