@@ -282,15 +282,95 @@
       }
 
       function showQuestion() {
-        // OMITTED FOR BREVITY
+        const quiz = document.getElementById('quiz');
+        quiz.innerHTML = '';
+        if (currentQuestion >= quizData.length) return showResult();
+        const q = quizData[currentQuestion];
+  
+        const questionEl = document.createElement('div');
+        questionEl.className = 'question';
+        questionEl.textContent = q.question;
+        quiz.appendChild(questionEl);
+  
+        if (q.images && q.images.length > 0) {
+          const imageContainer = document.createElement('div');
+          imageContainer.className = 'question-images';
+          q.images.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            imageContainer.appendChild(img);
+          });
+          quiz.appendChild(imageContainer);
+        }
+  
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'options';
+        q.options.forEach((opt, idx) => {
+          const button = document.createElement('button');
+          button.textContent = opt;
+          button.onclick = () => {
+            const keys = q.scores[idx];
+            keys.forEach(key => {
+              scores[key] = (scores[key] || 0) + 1;
+            });
+            currentQuestion++;
+            showQuestion();
+          };
+          optionsDiv.appendChild(button);
+        });
+        quiz.appendChild(optionsDiv);
       }
 
-      function showResult() {
-        // OMITTED FOR BREVITY
+    function showResult() {
+      document.getElementById('quiz').style.display = 'none';
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+
+      const sortedResults = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+      const topResult = sortedResults[0][0];
+      const result = resultMap[topResult];
+
+      const additionalImgs = sortedResults.slice(1, 4)
+        .filter(([key]) => resultMap[key])
+        .map(([key]) => `<img src="${resultMap[key].image}" alt="${resultMap[key].name}" title="${resultMap[key].name}" />`)
+        .join('');
+
+      // Ask for user's name
+      const userName = prompt("Enter your name to add your result to the leaderboard:");
+
+      if (userName) {
+        leaderboard.push({ name: userName, result: result.name });
       }
+
+      const leaderboardHTML = leaderboard.map(entry => `<li><strong>${entry.name}</strong>: ${entry.result}</li>`).join('');
+
+      resultDiv.innerHTML = `
+        <h2>You are ${result.name}!</h2>
+        <img src="${result.image}" alt="${result.name}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
+        <div class="character-images">${additionalImgs}</div>
+        <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
+        <h3>Leaderboard</h3>
+        <ul style="text-align: left; list-style: none; padding: 0;">${leaderboardHTML}</ul>
+      `;
+}
+
+
+      resultDiv.innerHTML = `
+        <h2>You are ${result.name}!</h2>
+        <img src="${result.image}" alt="${result.name}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
+        <div class="character-images">${additionalImgs}</div>
+        <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
+      `;
+    }
+
 
       window.restartQuiz = function() {
-        // OMITTED FOR BREVITY
+        currentQuestion = 0;
+        scores = {};
+        document.getElementById('quiz').style.display = 'block';
+        document.getElementById('result').style.display = 'none';
+        showQuestion();
+    }
       }
     };
   </script>
