@@ -31,12 +31,12 @@
       margin-bottom: 1rem;
     }
     .question-images img {
-      width: 100px;
+      width: 200px;
       height: auto;
       border-radius: 10px;
       border: 2px solid #ff69b4;
     }
-    .options button, .retake-btn, .start-btn  {
+    .options button, .retake-btn, .start-btn {
       display: block;
       margin: 0.5rem auto;
       padding: 0.75rem 1.5rem;
@@ -64,34 +64,6 @@
       border-radius: 50%;
       border: 2px solid #ff69b4;
     }
-    .question-images img {
-      width: 200px;
-      height: 200px;
-      border-radius: 10px;
-      border: 2px solid #ff69b4;
-    }
-    .content-section {
-    display: flex;
-    align-items: center;
-    margin: 2rem 0;
-    gap: 2rem;
-  }
-
-  .content-section.reverse {
-    flex-direction: row-reverse;
-  }
-
-  .content-section img {
-    width: 200px;
-    border-radius: 10px;
-  }
-
-  .content-text {
-    flex: 1;
-    font-size: 1.1rem;
-    text-align: left;
-  }
-
   </style>
 </head>
 <body>
@@ -99,37 +71,15 @@
     <div id="landing">
       <h1>Which Feminist Are You?</h1>
       <p>Take this fun quiz to discover your inner feminist icon!</p>
+      <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
     </div>
-    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
     <div id="quiz" style="display:none;"></div>
     <div class="result" id="result"></div>
   </div>
-<button class="start-btn" onclick="startQuiz()">Start Quiz</button>
-<div class="content-section">
-  <img src="images/feminist1.jpg" alt="Feminist 1" />
-  <div class="content-text">
-    <p><strong>Jane Austen</strong> was a novelist who explored the emotional and intellectual lives of women in Georgian society...</p>
-  </div>
-</div>
 
-<div class="content-section reverse">
-  <img src="images/feminist2.jpg" alt="Feminist 2" />
-  <div class="content-text">
-    <p><strong>Angela Davis</strong> is a political activist known for her work on prison abolition, racial justice, and feminism...</p>
-  </div>
-</div>
-
-<div class="content-section">
-  <img src="images/feminist3.jpg" alt="Feminist 3" />
-  <div class="content-text">
-    <p><strong>Marie Curie</strong> pioneered research in radioactivity and was the first woman to win a Nobel Prize...</p>
-  </div>
-</div>
-</style>
-
-  let leaderboard = [];
   <script>
-    const quizData = [
+    window.onload = function() {
+      const quizData = [
       {
         question: "What’s your ideal weekend activity?",
         options: [
@@ -267,8 +217,10 @@
         ],
         images:["images/hobbies.png"]
       }
-    ];
+      ];
 
+      const resultMap = {
+        
     const resultMap = {
       janeAusten: {
         name: "Jane Austen",
@@ -330,102 +282,89 @@
         name: "Jane Goodall",
         image: "images/jane_goodall.jpg"
       }
-    };
+      };
 
-    let currentQuestion = 0;
-    let scores = {};
+      let currentQuestion = 0;
+      let scores = {};
 
-    function showQuestion() {
-      const quiz = document.getElementById('quiz');
-      quiz.innerHTML = '';
-      if (currentQuestion >= quizData.length) return showResult();
-      const q = quizData[currentQuestion];
-
-      const questionEl = document.createElement('div');
-      questionEl.className = 'question';
-      questionEl.textContent = q.question;
-      quiz.appendChild(questionEl);
-
-      if (q.images && q.images.length > 0) {
-        const imageContainer = document.createElement('div');
-        imageContainer.className = 'question-images';
-        q.images.forEach(src => {
-          const img = document.createElement('img');
-          img.src = src;
-          imageContainer.appendChild(img);
-        });
-        quiz.appendChild(imageContainer);
+      window.startQuiz = function() {
+        document.getElementById('landing').style.display = 'none';
+        document.getElementById('quiz').style.display = 'block';
+        showQuestion();
       }
 
-      const optionsDiv = document.createElement('div');
-      optionsDiv.className = 'options';
-      q.options.forEach((opt, idx) => {
-        const button = document.createElement('button');
-        button.textContent = opt;
-        button.onclick = () => {
-          const keys = q.scores[idx];
-          keys.forEach(key => {
-            scores[key] = (scores[key] || 0) + 1;
+      function showQuestion() {
+        const quiz = document.getElementById('quiz');
+        quiz.innerHTML = '';
+        if (currentQuestion >= quizData.length) return showResult();
+        const q = quizData[currentQuestion];
+
+        const questionEl = document.createElement('div');
+        questionEl.className = 'question';
+        questionEl.textContent = q.question;
+        quiz.appendChild(questionEl);
+
+        if (q.images && q.images.length > 0) {
+          const imageContainer = document.createElement('div');
+          imageContainer.className = 'question-images';
+          q.images.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            imageContainer.appendChild(img);
           });
-          currentQuestion++;
-          showQuestion();
-        };
-        optionsDiv.appendChild(button);
-      });
-      quiz.appendChild(optionsDiv);
-    }
+          quiz.appendChild(imageContainer);
+        }
 
-    function showResult() {
-      document.getElementById('quiz').style.display = 'none';
-      const resultDiv = document.getElementById('result');
-      resultDiv.style.display = 'block';
-
-      const sortedResults = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-      const topResult = sortedResults[0][0];
-      const result = resultMap[topResult];
-
-      const additionalImgs = sortedResults.slice(1, 4)
-        .filter(([key]) => resultMap[key])
-        .map(([key]) => `<img src="${resultMap[key].image}" alt="${resultMap[key].name}" title="${resultMap[key].name}" />`)
-        .join('');
-
-      // Ask for user's name
-      const userName = prompt("Enter your name to add your result to the leaderboard:");
-
-      if (userName) {
-        leaderboard.push({ name: userName, result: result.name });
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'options';
+        q.options.forEach((opt, idx) => {
+          const button = document.createElement('button');
+          button.textContent = opt;
+          button.onclick = () => {
+            const keys = q.scores[idx];
+            keys.forEach(key => {
+              scores[key] = (scores[key] || 0) + 1;
+            });
+            currentQuestion++;
+            showQuestion();
+          };
+          optionsDiv.appendChild(button);
+        });
+        quiz.appendChild(optionsDiv);
       }
 
-      const leaderboardHTML = leaderboard.map(entry => `<li><strong>${entry.name}</strong>: ${entry.result}</li>`).join('');
+      function showResult() {
+        document.getElementById('quiz').style.display = 'none';
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        const sortedResults = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        const topResult = sortedResults[0][0];
+        const result = resultMap[topResult];
 
-      resultDiv.innerHTML = `
-        <h2>You are ${result.name}!</h2>
-        <img src="${result.image}" alt="${result.name}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
-        <div class="character-images">${additionalImgs}</div>
-        <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
-        <h3>Leaderboard</h3>
-        <ul style="text-align: left; list-style: none; padding: 0;">${leaderboardHTML}</ul>
-      `;
-}
+        const additionalImgs = sortedResults.slice(1, 4)
+          .filter(([key]) => resultMap[key])
+          .map(([key]) => `<img src="${resultMap[key].image}" alt="${resultMap[key].name}" title="${resultMap[key].name}" />`)
+          .join('');
 
+        resultDiv.innerHTML = `
+          <h2>You are ${result.name}!</h2>
+          <img src="${result.image}" alt="${result.name}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
+          <div class="character-images">${additionalImgs}</div>
+          <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
+        `;
+      }
 
-      resultDiv.innerHTML = `
-        <h2>You are ${result.name}!</h2>
-        <img src="${result.image}" alt="${result.name}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
-        <div class="character-images">${additionalImgs}</div>
-        <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
-      `;
-    }
-
-    function restartQuiz() {
-      currentQuestion = 0;
-      scores = {};
-      document.getElementById('quiz').style.display = 'block';
-      document.getElementById('result').style.display = 'none';
-      showQuestion();
-    }
-
-    showQuestion();
+      window.restartQuiz = function() {
+        currentQuestion = 0;
+        scores = {};
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('quiz').style.display = 'block';
+        showQuestion();
+      }
+    };
   </script>
 </body>
 </html>
+
+
+
