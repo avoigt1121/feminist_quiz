@@ -31,12 +31,12 @@
       margin-bottom: 1rem;
     }
     .question-images img {
-      width: 100px;
+      width: 200px;
       height: auto;
       border-radius: 10px;
       border: 2px solid #ff69b4;
     }
-    .options button, .retake-btn, .start-btn  {
+    .options button, .retake-btn, .start-btn, .submit-name-btn {
       display: block;
       margin: 0.5rem auto;
       padding: 0.75rem 1.5rem;
@@ -64,35 +64,34 @@
       border-radius: 50%;
       border: 2px solid #ff69b4;
     }
-    .question-images img {
-      width: 200px;
-      height: 200px;
-      border-radius: 10px;
-      border: 2px solid #ff69b4;
+    .leaderboard-container {
+      background-color: #ffe4ec;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+      text-align: center;
     }
-    .content-section {
-    display: flex;
-    align-items: center;
-    margin: 2rem 0;
-    gap: 2rem;
-  }
-
-  .content-section.reverse {
-    flex-direction: row-reverse;
-  }
-
-  .content-section img {
-    width: 200px;
-    border-radius: 10px;
-  }
-
-  .content-text {
-    flex: 1;
-    font-size: 1.1rem;
-    text-align: left;
-  }
-    let leaderboard = [];
-
+    .leaderboard-container h3 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: #d63384;
+    }
+    .leaderboard-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .leaderboard-list li {
+      background-color: #fff0f5;
+      margin: 0.5rem 0;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      color: #c71585;
+      font-weight: bold;
+      font-size: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
   </style>
 </head>
 <body>
@@ -105,30 +104,6 @@
     <div id="quiz" style="display:none;"></div>
     <div class="result" id="result"></div>
   </div>
-
-<div class="content-section">
-  <img src="images/feminist1.jpg" alt="Feminist 1" />
-  <div class="content-text">
-    <p><strong>Jane Austen</strong> was a novelist who explored the emotional and intellectual lives of women in Georgian society...</p>
-  </div>
-</div>
-
-<div class="content-section reverse">
-  <img src="images/feminist2.jpg" alt="Feminist 2" />
-  <div class="content-text">
-    <p><strong>Angela Davis</strong> is a political activist known for her work on prison abolition, racial justice, and feminism...</p>
-  </div>
-</div>
-
-<div class="content-section">
-  <img src="images/feminist3.jpg" alt="Feminist 3" />
-  <div class="content-text">
-    <p><strong>Marie Curie</strong> pioneered research in radioactivity and was the first woman to win a Nobel Prize...</p>
-  </div>
-</div>
-</style>
-
-
   <script>
     const quizData = [
       {
@@ -270,72 +245,66 @@
       }
     ];
 
-    const resultMap = {
-      janeAusten: {
-        name: "Jane Austen",
-        image: "images/jane_austen.jpg"
-      },
-      mayaAngelou: {
-        name: "Maya Angelou",
-        image: "images/maya_angelou.jpg"
-      },
-      angelaDavis: {
-        name: "Angela Davis",
-        image: "images/angela_davis.jpg"
-      },
-      gloriaSteinem: {
-        name: "Gloria Steinem",
-        image: "images/gloria_steinem.jpg"
-      },
-      ameliaEarhart: {
-        name: "Amelia Earhart",
-        image: "images/amelia_earhart.jpg"
-      },
-      christineJorgensen: {
-        name: "Christine Jorgensen",
-        image: "images/christine_jorgensen.jpg"
-      },
-      michelleObama: {
-        name: "Michelle Obama",
-        image: "images/michelle_obama.jpg"
-      },
-      ruthGinsburg: {
-        name: "Ruth Bader Ginsburg",
-        image: "images/ruth_ginsburg.jpg"
-      },
-      bellHooks: {
-        name: "bell hooks",
-        image: "images/bell_hooks.jpg"
-      },
-      susanAnthony: {
-        name: "Susan B. Anthony",
-        image: "images/susan_anthony.jpg"
-      },
-      rosaParks: {
-        name: "Rosa Parks",
-        image: "images/rosa_parks.jpg"
-      },
-      marieCurie: {
-        name: "Marie Curie",
-        image: "images/marie_curie.jpg"
-      },
-      eleanorRoosevelt: {
-        name: "Eleanor Roosevelt",
-        image: "images/eleanor_roosevelt.jpg"
-      },
-      audreLorde: {
-        name: "Audre Lorde",
-        image: "images/audre_lorde.jpg"
-      },
-      janeGoodall: {
-        name: "Jane Goodall",
-        image: "images/jane_goodall.jpg"
-      }
-    };
 
+    const resultMap = {
+      janeAusten: { name: "Jane Austen", image: "images/jane_austen.jpg" },
+      mayaAngelou: { name: "Maya Angelou", image: "images/maya_angelou.jpg" },
+      angelaDavis: { name: "Angela Davis", image: "images/angela_davis.jpg" },
+      gloriaSteinem: { name: "Gloria Steinem", image: "images/gloria_steinem.jpg" },
+      ameliaEarhart: { name: "Amelia Earhart", image: "images/amelia_earhart.jpg" },
+      christineJorgensen: { name: "Christine Jorgensen", image: "images/christine_jorgensen.jpg" },
+      michelleObama: { name: "Michelle Obama", image: "images/michelle_obama.jpg" },
+      ruthGinsburg: { name: "Ruth Bader Ginsburg", image: "images/ruth_ginsburg.jpg" },
+      bellHooks: { name: "bell hooks", image: "images/bell_hooks.jpg" },
+      susanAnthony: { name: "Susan B. Anthony", image: "images/susan_anthony.jpg" },
+      rosaParks: { name: "Rosa Parks", image: "images/rosa_parks.jpg" },
+      marieCurie: { name: "Marie Curie", image: "images/marie_curie.jpg" },
+      eleanorRoosevelt: { name: "Eleanor Roosevelt", image: "images/eleanor_roosevelt.jpg" },
+      audreLorde: { name: "Audre Lorde", image: "images/audre_lorde.jpg" },
+      janeGoodall: { name: "Jane Goodall", image: "images/jane_goodall.jpg" }
+    };
     let currentQuestion = 0;
     let scores = {};
+    
+function updateLeaderboard() {
+  const container = document.getElementById('leaderboardContainer');
+  container.style.display = 'block';
 
+  const playCount = parseInt(localStorage.getItem('quizPlayCount') || '0', 10);
+  const grouped = {};
+
+  // Group by character name
+  leaderboard.forEach(entry => {
+    if (!grouped[entry.result]) grouped[entry.result] = [];
+    grouped[entry.result].push(entry.name);
+  });
+
+  // Sort by popularity
+  const sorted = Object.entries(grouped).sort((a, b) => b[1].length - a[1].length);
+
+  const html = sorted.map(([charKey, names]) => {
+    const char = Object.values(resultMap).find(c => c.name === charKey);
+    const imgHTML = char ? `<img src="${char.image}" alt="${char.name}" style="width:40px;height:40px;border-radius:50%;margin-right:10px;">` : '';
+    const nameList = names.map(name => `<li>${name}</li>`).join('');
+    return `
+      <li>
+        <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+          ${imgHTML}<strong>${charKey} (${names.length})</strong>
+        </div>
+        <ul style="padding-left: 2rem; text-align: left;">${nameList}</ul>
+      </li>
+    `;
+  }).join('');
+
+  container.innerHTML = `
+    <h3>Leaderboard</h3>
+    <p><strong>Total Plays:</strong> ${playCount}</p>
+    <ul class="leaderboard-list" style="text-align:left;">${html}</ul>
+  `;
+}
+    let leaderboard = JSON.parse(localStorage.getItem('feministLeaderboard') || '[]');
+    let resultCharacter = null;
+    
     function showQuestion() {
       const quiz = document.getElementById('quiz');
       quiz.innerHTML = '';
@@ -383,50 +352,133 @@
 
       const sortedResults = Object.entries(scores).sort((a, b) => b[1] - a[1]);
       const topResult = sortedResults[0][0];
-      const result = resultMap[topResult];
+      resultCharacter = resultMap[topResult];
 
       const additionalImgs = sortedResults.slice(1, 4)
         .filter(([key]) => resultMap[key])
         .map(([key]) => `<img src="${resultMap[key].image}" alt="${resultMap[key].name}" title="${resultMap[key].name}" />`)
         .join('');
 
-      // Ask for user's name
-      const userName = prompt("Enter your name to add your result to the leaderboard:");
-
-      if (userName) {
-        leaderboard.push({ name: userName, result: result.name });
-      }
-
-      const leaderboardHTML = leaderboard.map(entry => `<li><strong>${entry.name}</strong>: ${entry.result}</li>`).join('');
+      const leaderboardEntries = leaderboard.map(entry => `<li><strong>${entry.name}</strong>: ${entry.result}</li>`).join('');
 
       resultDiv.innerHTML = `
-        <h2>You are ${result.name}!</h2>
-        <img src="${result.image}" alt="${result.name}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
+        <h2>You are ${resultCharacter.name}!</h2>
+        <img src="${resultCharacter.image}" alt="${resultCharacter.name}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
         <div class="character-images">${additionalImgs}</div>
-        <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
-        <h3>Leaderboard</h3>
-        <ul style="text-align: left; list-style: none; padding: 0;">${leaderboardHTML}</ul>
-      `;
-}
-
-
-      resultDiv.innerHTML = `
-        <h2>You are ${result.name}!</h2>
-        <img src="${result.image}" alt="${result.name}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
-        <div class="character-images">${additionalImgs}</div>
+        <input type="text" id="userNameInput" placeholder="Enter your name" style="margin-top: 1rem; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
+        <button class="submit-name-btn" onclick="submitName()">Submit to Leaderboard</button>
+        <div id="leaderboardContainer" class="leaderboard-container" style="display:none;"></div>
+<button class="submit-name-btn" id="deleteEntryBtn" style="display:none;" onclick="deleteMyEntry()">Delete My Entry</button>
+          <!--<h3>Leaderboard</h3>
+          <ul class="leaderboard-list">${leaderboardEntries}</ul>-->
+        </div>
         <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
       `;
     }
 
+    function submitName() {
+      const nameInput = document.getElementById('userNameInput');
+      const name = nameInput.value.trim();
+      if (!name) return alert("Please enter your name.");
+    
+      // Delete previous entries with the same name
+      leaderboard = leaderboard.filter(entry => entry.name !== name);
+    
+      // Add new entry
+      leaderboard.push({ name: name, result: resultCharacter.name });
+      localStorage.setItem('feministLeaderboard', JSON.stringify(leaderboard));
+    
+      // Increment quiz play count
+      let count = parseInt(localStorage.getItem('quizPlayCount') || '0', 10);
+      count++;
+      localStorage.setItem('quizPlayCount', count);
+    
+      updateLeaderboard();
+    }
+
+    function startQuiz() {
+      document.getElementById('landing').style.display = 'none';
+      document.getElementById('quiz').style.display = 'block';
+      showQuestion();
+    
+      leaderboard.forEach(entry => {
+        if (!grouped[entry.result]) grouped[entry.result] = [];
+        grouped[entry.result].push(entry.name);
+      });
+      
+      // Sort characters by number of users (popularity)
+      const sortedCharacters = Object.keys(grouped).sort((a, b) => grouped[b].length - grouped[a].length);
+      
+      // Build HTML
+      let leaderboardHTML = '';
+      sortedCharacters.forEach(character => {
+        const characterData = Object.values(resultMap).find(c => c.name === character);
+        const characterImage = characterData ? characterData.image : '';
+        leaderboardHTML += `
+          <li>
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+              <img src="${characterImage}" alt="${character}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; border: 2px solid #ff69b4;" />
+              <strong>${character}</strong>
+            </div>
+            <ul style="margin-left: 2.5rem; text-align: left;">
+              ${grouped[character].map(name => `<li style="font-weight: normal;">${name}</li>`).join('')}
+            </ul>
+          </li>
+        `;
+      });
+      
+      // Render
+      const container = document.getElementById('leaderboardContainer');
+      container.innerHTML = `
+        <h3>Leaderboard</h3>
+        <ul class="leaderboard-list" style="text-align: left;">${leaderboardHTML}</ul>
+      `;
+      
+        container.style.display = 'block';
+      }
+
+
+    window.onload = function() {
+      document.getElementById('quiz').style.display = 'none';
+      document.getElementById('result').style.display = 'none';
+      document.getElementById('landing').style.display = 'block';
+    }
+    
     function restartQuiz() {
+      const nameToDelete = prompt("Enter your name to remove it from the leaderboard before retaking the quiz:");
+    
+      if (nameToDelete) {
+        leaderboard = leaderboard.filter(entry => entry.name.toLowerCase() !== nameToDelete.toLowerCase());
+        localStorage.setItem('feministLeaderboard', JSON.stringify(leaderboard));
+      }
+    
       currentQuestion = 0;
       scores = {};
       document.getElementById('quiz').style.display = 'block';
       document.getElementById('result').style.display = 'none';
       showQuestion();
-    }
+}
+    function deleteMyEntry() {
+      if (!submittedName) return;
+    
+      leaderboard = leaderboard.filter(entry => entry.name.toLowerCase() !== submittedName.toLowerCase());
+      localStorage.setItem('feministLeaderboard', JSON.stringify(leaderboard));
+    
+      // Refresh leaderboard
+      const leaderboardHTML = leaderboard.map(entry => `<li><strong>${entry.name}</strong>: ${entry.result}</li>`).join('');
+      const container = document.getElementById('leaderboardContainer');
+      container.innerHTML = `
+        <h3>Leaderboard</h3>
+        <ul class="leaderboard-list">${leaderboardHTML}</ul>
+      `;
+    
+      // Hide delete button again
+      document.getElementById('deleteEntryBtn').style.display = 'none';
+}
 
-    showQuestion();
+    window.startQuiz = startQuiz;
+    window.restartQuiz = restartQuiz;
+    window.submitName = submitName;
   </script>
 </body>
 </html>
