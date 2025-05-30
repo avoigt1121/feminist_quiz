@@ -70,6 +70,27 @@
       border-radius: 10px;
       border: 2px solid #ff69b4;
     }
+    .content-section {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+    gap: 2rem;
+  }
+
+  .content-section.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .content-section img {
+    width: 200px;
+    border-radius: 10px;
+  }
+
+  .content-text {
+    flex: 1;
+    font-size: 1.1rem;
+    text-align: left;
+  }
     let leaderboard = [];
 
   </style>
@@ -79,13 +100,33 @@
     <div id="landing">
       <h1>Which Feminist Are You?</h1>
       <p>Take this fun quiz to discover your inner feminist icon!</p>
-      <p>Take this fun quiz to discover your inner feminist icon!</p>
-      <p>Take this fun quiz to discover your inner feminist icon!</p>
       <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
     </div>
     <div id="quiz" style="display:none;"></div>
     <div class="result" id="result"></div>
   </div>
+
+<div class="content-section">
+  <img src="images/feminist1.jpg" alt="Feminist 1" />
+  <div class="content-text">
+    <p><strong>Jane Austen</strong> was a novelist who explored the emotional and intellectual lives of women in Georgian society...</p>
+  </div>
+</div>
+
+<div class="content-section reverse">
+  <img src="images/feminist2.jpg" alt="Feminist 2" />
+  <div class="content-text">
+    <p><strong>Angela Davis</strong> is a political activist known for her work on prison abolition, racial justice, and feminism...</p>
+  </div>
+</div>
+
+<div class="content-section">
+  <img src="images/feminist3.jpg" alt="Feminist 3" />
+  <div class="content-text">
+    <p><strong>Marie Curie</strong> pioneered research in radioactivity and was the first woman to win a Nobel Prize...</p>
+  </div>
+</div>
+</style>
 
 
   <script>
