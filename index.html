@@ -31,6 +31,70 @@
       margin-bottom: 1rem;
     }
     .question-images img {
+      width: 200px;
+      height: auto;
+      border-radius: 10px;
+      border: 2px solid #ff69b4;
+    }
+    .options button, .retake-btn, .start-btn {
+      display: block;
+      margin: 0.5rem auto;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff69b4;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .result {
+      display: none;
+    }
+    .character-images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+    .character-images img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #ff69b4;
+    }
+    <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Which Feminist Are You?</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 1.5rem;
+    }
+    .question-images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .question-images img {
       width: 100px;
       height: auto;
       border-radius: 10px;
@@ -91,70 +155,6 @@
     font-size: 1.1rem;
     text-align: left;
   }
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Which Feminist Are You?</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #fff0f5;
-      margin: 0;
-      padding: 2rem;
-      text-align: center;
-    }
-    .quiz-container {
-      max-width: 600px;
-      margin: auto;
-      background: #ffffff;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    .question {
-      margin-bottom: 1.5rem;
-    }
-    .question-images {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .question-images img {
-      width: 200px;
-      height: auto;
-      border-radius: 10px;
-      border: 2px solid #ff69b4;
-    }
-    .options button, .retake-btn, .start-btn {
-      display: block;
-      margin: 0.5rem auto;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 10px;
-      background-color: #ff69b4;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .result {
-      display: none;
-    }
-    .character-images {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 2rem;
-      gap: 1rem;
-    }
-    .character-images img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid #ff69b4;
-    }
   </style>
 </head>
 <body>
