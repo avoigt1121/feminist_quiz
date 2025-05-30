@@ -445,7 +445,7 @@ function updateLeaderboard() {
     }
     
     function restartQuiz() {
-      const nameToDelete = prompt("Enter your name to remove it from the leaderboard before retaking the quiz:");
+      const nameToDelete = prompt("Enter your name to remove it from the leaderboard before retaking the quiz, if you want:");
     
       if (nameToDelete) {
         leaderboard = leaderboard.filter(entry => entry.name.toLowerCase() !== nameToDelete.toLowerCase());
