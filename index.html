@@ -141,16 +141,31 @@ body {
 #next-button:hover {
   background-color: #ff85c1;
 }
+#landing p.intro-text {
+  max-width: 500px;
+  margin: 1rem auto;
+  color: #a33f7f;
+  font-style: italic;
+  font-size: 1.1rem;
+}
 
   </style>
 </head>
 <body>
-  <div class="quiz-container">
-    <div id="landing">
-      <h1>Which Feminist Are You?</h1>
-      <p>Take this fun quiz to discover your inner feminist icon!</p>
-      <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
-    </div>
+  <div id="landing">
+    <h1>Which Feminist Are You?</h1>
+    <p>Take this fun quiz to discover your inner feminist icon!</p>
+    <p style="max-width: 500px; margin: 1rem auto; color: #a33f7f; font-style: italic;">
+      This quiz is designed to celebrate inspiring feminist figures through your own choices and preferences. Although not all these women are strickly considered "feminist", depending on their jobs, roles, or eras, they were all considered influential women who made major changes for women and others during their time in the sun.
+    </p>
+    <p style="max-width: 500px; margin: 1rem auto; color: #a33f7f; font-style: bold;"></p>
+      I hope you have fun learning more about some influential women of the past and present.
+
+      And hopefully, you’ll see which icon aligns best with your personality and values. Click below to start!
+    </p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+  <div class="quiz-container" style="display: none;">
     <div id="quiz" style="display:none;"></div>
     <div class="result" id="result"></div>
   </div>
@@ -160,6 +175,7 @@ body {
     <p id="fun-fact-text"></p>
     <button id="next-button">Next</button>
   </div>
+  
   <script>
     const quizData = [
       {
@@ -454,21 +470,22 @@ function updateLeaderboard() {
       const q = quizData[currentQuestion];
 
       if (q.type === "funFact") {
-        // Hide quiz and show fun fact container
-        document.getElementById("quiz").style.display = "none";
-        document.getElementById("fun-fact-container").style.display = "block";
-        document.getElementById("fun-fact-text").innerText = q.fact;
-        document.getElementById("fun-fact-image").src = q.images[0] || '';
-        document.getElementById("next-button").onclick = () => {
-          currentQuestion++;
-          showQuestion();
+          document.querySelector(".quiz-container").style.display = "none";
+          document.getElementById("fun-fact-container").style.display = "block";
+          document.getElementById("fun-fact-text").innerText = q.fact;
+          document.getElementById("fun-fact-image").src = q.images[0] || '';
+          document.getElementById("next-button").onclick = () => {
+            currentQuestion++;
+            showQuestion();
         };
-        return; // Exit early
-      }
+        return; 
+      } 
 
       // Else, render a question
       document.getElementById("quiz").style.display = "block";
       document.getElementById("fun-fact-container").style.display = "none";
+      document.querySelector(".quiz-container").style.display = "block";  // FIXED LINE HERE
+
 
       const questionEl = document.createElement('div');
       questionEl.className = 'question';
@@ -503,60 +520,33 @@ function updateLeaderboard() {
       });
       quiz.appendChild(optionsDiv);
     }
-
-    function loadQuestion() {
-      const currentQuizData = quizData[questionIndex];
-
-      if (currentQuizData.type === "question") {
-        // Hide the fun fact section and show the quiz container
-        document.getElementById("quiz-container").style.display = "block";
-        document.getElementById("fun-fact-container").style.display = "none";
-
-        const questionText = document.getElementById("question");
-        questionText.innerText = currentQuizData.question;
-        const optionsContainer = document.getElementById("options");
-        optionsContainer.innerHTML = "";
-        currentQuizData.options.forEach((option, index) => {
-          const button = document.createElement("button");
-          button.innerText = option;
-          button.onclick = () => {
-            tallyScore(currentQuizData.scores[index]);
-            nextQuestion();
-          };
-          optionsContainer.appendChild(button);
-        });
-
-        // Handle images for questions
-        const imageContainer = document.getElementById("images");
-        imageContainer.innerHTML = ""; // Clear old images
-        if (currentQuizData.images && currentQuizData.images.length > 0) {
-          currentQuizData.images.forEach(imagePath => {
-            const img = document.createElement("img");
-            img.src = imagePath;
-            imageContainer.appendChild(img);
-          });
-        }
-
-      } else if (currentQuizData.type === "funFact") {
-        // Hide the quiz container and show the fun fact section
-        document.getElementById("quiz-container").style.display = "none";
-        document.getElementById("fun-fact-container").style.display = "block";
-
-        // Populate fun fact content
-        document.getElementById("fun-fact-text").innerText = currentQuizData.fact;
-        document.getElementById("fun-fact-image").src = currentQuizData.image;
-        document.getElementById("next-button").addEventListener("click", () => {nextQuestion();});
-      }
-    }
     function showResult() {
       document.getElementById('fun-fact-container').style.display = 'none'; 
       document.getElementById('quiz').style.display = 'none';
+      document.querySelector('.quiz-container').style.display = 'block';
+      document.getElementById('landing').style.display = 'none';
+
       const resultDiv = document.getElementById('result');
+      console.log("Scores at result:", scores);
+
       resultDiv.style.display = 'block';
+
       const sortedResults = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+
+      if (sortedResults.length === 0) {
+        resultDiv.innerHTML = `
+          <h2>No results to display.</h2>
+          <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
+        `;
+        return;
+      }
+
       const topResult = sortedResults[0][0];
       resultCharacter = resultMap[topResult];
-
+      if (!resultCharacter) {
+        resultDiv.innerHTML = `<h2>Sorry, no matching result found.</h2>`;
+        return;
+      }
       const additionalImgs = sortedResults.slice(1, 4)
         .filter(([key]) => resultMap[key])
         .map(([key]) => `<img src="${resultMap[key].image}" alt="${resultMap[key].name}" title="${resultMap[key].name}" />`)
@@ -571,13 +561,10 @@ function updateLeaderboard() {
         <input type="text" id="userNameInput" placeholder="Enter your name" style="margin-top: 1rem; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
         <button class="submit-name-btn" onclick="submitName()">Submit to Leaderboard</button>
         <div id="leaderboardContainer" class="leaderboard-container" style="display:none;"></div>
-<button class="submit-name-btn" id="deleteEntryBtn" style="display:none;" onclick="deleteMyEntry()">Delete My Entry</button>
-          <!--<h3>Leaderboard</h3>
-          <ul class="leaderboard-list">${leaderboardEntries}</ul>-->
-        </div>
+        <button class="submit-name-btn" id="deleteEntryBtn" style="display:none;" onclick="deleteMyEntry()">Delete My Entry</button>
         <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
       `;
-    }
+}
 
     function submitName() {
       const nameInput = document.getElementById('userNameInput');
@@ -602,44 +589,11 @@ function updateLeaderboard() {
     function startQuiz() {
       document.getElementById('landing').style.display = 'none';
       document.getElementById('quiz').style.display = 'block';
+      document.querySelector('.quiz-container').style.display = 'block';
+      currentQuestion = 0;
+      scores = {};
       showQuestion();
-    
-      leaderboard.forEach(entry => {
-        if (!grouped[entry.result]) grouped[entry.result] = [];
-        grouped[entry.result].push(entry.name);
-      });
-      
-      // Sort characters by number of users (popularity)
-      const sortedCharacters = Object.keys(grouped).sort((a, b) => grouped[b].length - grouped[a].length);
-      
-      // Build HTML
-      let leaderboardHTML = '';
-      sortedCharacters.forEach(character => {
-        const characterData = Object.values(resultMap).find(c => c.name === character);
-        const characterImage = characterData ? characterData.image : '';
-        leaderboardHTML += `
-          <li>
-            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
-              <img src="${characterImage}" alt="${character}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; border: 2px solid #ff69b4;" />
-              <strong>${character}</strong>
-            </div>
-            <ul style="margin-left: 2.5rem; text-align: left;">
-              ${grouped[character].map(name => `<li style="font-weight: normal;">${name}</li>`).join('')}
-            </ul>
-          </li>
-        `;
-      });
-      
-      // Render
-      const container = document.getElementById('leaderboardContainer');
-      container.innerHTML = `
-        <h3>Leaderboard</h3>
-        <ul class="leaderboard-list" style="text-align: left;">${leaderboardHTML}</ul>
-      `;
-      
-        container.style.display = 'block';
-      }
-
+}
 
     window.onload = function() {
       document.getElementById('quiz').style.display = 'none';
@@ -658,6 +612,7 @@ function updateLeaderboard() {
       currentQuestion = 0;
       scores = {};
       document.getElementById('quiz').style.display = 'block';
+      document.querySelector(".quiz-container").style.display = "block";
       document.getElementById('result').style.display = 'none';
       showQuestion();
 }
