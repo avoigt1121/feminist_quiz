@@ -92,6 +92,56 @@
       font-size: 1rem;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     }
+    #next-button {
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff69b4;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    #fun-fact-container {
+  background: #fff0f5;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#fun-fact-heading {
+  margin-top: 0;
+  color: #d63384;
+  font-size: 1.5rem;
+}
+body {
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
+}
+#next-button {
+  transition: transform 0.2s;
+}
+
+#next-button:hover {
+  transform: scale(1.05);
+}
+
+#fun-fact-container img {
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ff69b4;
+  margin-top: 1rem;
+}
+
+
+#next-button:hover {
+  background-color: #ff85c1;
+}
+
   </style>
 </head>
 <body>
@@ -104,9 +154,16 @@
     <div id="quiz" style="display:none;"></div>
     <div class="result" id="result"></div>
   </div>
+  <div id="fun-fact-container" style="display: none;">
+    <h2 id="fun-fact-heading">Fun Fact!</h2>
+    <img id="fun-fact-image" src="" alt="Fun Fact Image" style="max-width: 100%; height: auto;">
+    <p id="fun-fact-text"></p>
+    <button id="next-button">Next</button>
+  </div>
   <script>
     const quizData = [
       {
+        type: "question",
         question: "What’s your ideal weekend activity?",
         options: [
           "Reading or writing",
@@ -123,6 +180,7 @@
         images: ["images/protesting.png"]
       },
       {
+        type: "question",
         question: "What's your favorite way to inspire change?",
         options: ["through writing", "through protest", "through science", "through leadership", "through nature"],
         scores: [
@@ -134,24 +192,29 @@
         ],
         images: ["images/change.png"]
       },
+            // New Fun Fact Page
       {
+        type: "funFact",
+        fact: "Susan B. Anthony was arrested for voting in 1872! Lots has changed since then :)",
+        images: ["images/susan-anthony-voting.jpg"]
+      },      
+      {
+        type: "question",
         question: "Which quote speaks to you most?",
         options: [
           "I am no bird; and no net ensnares me.",
-          "The most common way people give up their power is by thinking they don't have any.",
-          "Well-behaved women seldom make history.",
-          "I am deliberate and afraid of nothing.",
-          "The future belongs to those who believe in the beauty of their dreams.",
-          "If you want something said, ask a man; if you want something done, ask a woman.",
+          "The one person who will never leave us, whom we will never lose, is ourself.",
+          "No one can make you feel inferior without your consent.",
+          "Radical simply means \'grasping things at the root.\'",
+          "The only expectations I need to live up to are my own.",
           "I am not free while any woman is unfree, even when her shackles are very different from my own.",
-          "Science and everyday life cannot and should not be separated."
+          "Nothing in life is to be feared, it is only to be understood."
         ],
         scores: [
           ["janeAusten"],
           ["bellHooks"],
           ["eleanorRoosevelt"],
           ["angelaDavis"],
-          ["eleanorRoosevelt"],
           ["michelleObama"],
           ["audreLorde"],
           ["marieCurie"]
@@ -159,6 +222,7 @@
         images: ["images/readingquotes.png"]
       },
       {
+        type: "question",
         question: "pick a power outfit:",
         options: ["a flying suit", "a judicial robe", "a bold scarf and glasses", "a microphone and stage", "a fur coat, glamorous jewelry, and a full mug", "a lab coat"],
         scores: [
@@ -172,6 +236,12 @@
         images: ["images/outfits.png"]
       },
       {
+        type: "funFact",
+        fact: "Michelle Obama challenged the traditional notion that women need to wear high heels to be stylish by often opting for kitten heels, ballet flats, and even sneakers when appropriate.",
+        images: ["images/michelle_shoes.jpeg"]
+      },  
+      {
+        type: "question",
         question: "what do you think of MEN? (not us failing the bechdel test)",
         options: [
           "i love my lil husband/bf/fiance",
@@ -188,6 +258,12 @@
         images: ["images/men.png"]
       },
       {
+        type: "funFact",
+        fact: "Amelia Earhart was suspected of having affairs with both Eleanor Roosevelt and Gene Vidal, though she was married to a man. Her classic lesbian look, however, is attributed to the non-traditional clothing her mother dressed her in as a child, and her attempt to appear masculine to her piloting peers.",
+        images: ["images/amelia_eleanor.webp"]
+      },  
+      {
+        type: "question",
         question: "Which color best represents your personality?",
         options: ["Bold Red", "Peaceful Blue", "Creative Purple", "Sunny Yellow"],
         scores: [
@@ -199,6 +275,7 @@
         images: ["images/color.png"]
       },
       {
+        type: "question",
         question: "how do you usually work through a problem?",
         options: [
           "call all my friends... let's get this done TOGETHER!",
@@ -215,9 +292,10 @@
         images:["images/solvingproblems.png"]
       },
       {
+        type: "question",
         question: "what is your favorite hobby?",
         options: [
-          "taking a film camera out to find neat photo opps",
+          "taking a film camera out to find neat photo ops",
           "cozying up on the couch to KNIT!!!",
           "writing in my journal, notes app, or word docs",
           "anything outside, lets go look for frogs or play sports!",
@@ -233,9 +311,10 @@
         images:["images/hobbies.png"]
       },
       {
+        type: "question",
         question: "What’s your go-to comfort food on a bad day?",
         options: [
-          "a latte and a muffin, or anything vegetarian :)",
+          "a latte and a muffin:)",
           "pizza... or anything cheesy",
           "peanut butter pancakes... who doesn't love brunch?",
           "porterhouse steak and coffee... the basics",
@@ -250,9 +329,15 @@
           ["janeGoodall"],
           ["marieCurie"]
         ],
-        images:["images/foodz.png"]
+        images:["images/foods.webp"]
       },
       {
+        type: "funFact",
+        fact: "Jane Goodall is vegan and has a Vegan-inspired cookbook. \“Vegan food used to be tasteless and awful,\” she says, but today \“really good vegan cooking is some of the best I've ever tasted.\”",
+        images: ["images/goodall_cook.jpeg"]
+      },  
+      {
+        type: "question",
         question: "If you were an animal, what would you be?",
         options: [
           "a wolf",
@@ -268,9 +353,10 @@
           ["susanAnthony"],
           ["audreLorde"]
         ],
-        images:["images/animals.png"]
-      }
+        images:["images/animals.jpeg"]
+      },
       {
+        type: "question",
         question: "What movie/play universe would you most like to live in?",
         options: [
           "Little Women",
@@ -290,8 +376,13 @@
           ["bellHooks"],
           ["audreLorde"]
         ],
-        images:["images/movies.png"]
-      }
+        images:["images/fried2.jpg"]
+      },
+      {
+        type: "funFact",
+        fact: "When Taraji P. Henson signed on for the lead role, she met with Katherine Johnson, who was 98 years old, to discuss the character she was about to portray.",
+        images: ["images/hidden_figures.webp"]
+      },  
     ];
 
 
@@ -343,22 +434,41 @@ function updateLeaderboard() {
         <ul style="padding-left: 2rem; text-align: left;">${nameList}</ul>
       </li>
     `;
-  }).join('');
+    }).join('');
 
   container.innerHTML = `
     <h3>Leaderboard</h3>
     <p><strong>Total Plays:</strong> ${playCount}</p>
     <ul class="leaderboard-list" style="text-align:left;">${html}</ul>
   `;
-}
+  }
     let leaderboard = JSON.parse(localStorage.getItem('feministLeaderboard') || '[]');
     let resultCharacter = null;
     
     function showQuestion() {
       const quiz = document.getElementById('quiz');
       quiz.innerHTML = '';
+      
       if (currentQuestion >= quizData.length) return showResult();
+
       const q = quizData[currentQuestion];
+
+      if (q.type === "funFact") {
+        // Hide quiz and show fun fact container
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("fun-fact-container").style.display = "block";
+        document.getElementById("fun-fact-text").innerText = q.fact;
+        document.getElementById("fun-fact-image").src = q.images[0] || '';
+        document.getElementById("next-button").onclick = () => {
+          currentQuestion++;
+          showQuestion();
+        };
+        return; // Exit early
+      }
+
+      // Else, render a question
+      document.getElementById("quiz").style.display = "block";
+      document.getElementById("fun-fact-container").style.display = "none";
 
       const questionEl = document.createElement('div');
       questionEl.className = 'question';
@@ -394,11 +504,55 @@ function updateLeaderboard() {
       quiz.appendChild(optionsDiv);
     }
 
+    function loadQuestion() {
+      const currentQuizData = quizData[questionIndex];
+
+      if (currentQuizData.type === "question") {
+        // Hide the fun fact section and show the quiz container
+        document.getElementById("quiz-container").style.display = "block";
+        document.getElementById("fun-fact-container").style.display = "none";
+
+        const questionText = document.getElementById("question");
+        questionText.innerText = currentQuizData.question;
+        const optionsContainer = document.getElementById("options");
+        optionsContainer.innerHTML = "";
+        currentQuizData.options.forEach((option, index) => {
+          const button = document.createElement("button");
+          button.innerText = option;
+          button.onclick = () => {
+            tallyScore(currentQuizData.scores[index]);
+            nextQuestion();
+          };
+          optionsContainer.appendChild(button);
+        });
+
+        // Handle images for questions
+        const imageContainer = document.getElementById("images");
+        imageContainer.innerHTML = ""; // Clear old images
+        if (currentQuizData.images && currentQuizData.images.length > 0) {
+          currentQuizData.images.forEach(imagePath => {
+            const img = document.createElement("img");
+            img.src = imagePath;
+            imageContainer.appendChild(img);
+          });
+        }
+
+      } else if (currentQuizData.type === "funFact") {
+        // Hide the quiz container and show the fun fact section
+        document.getElementById("quiz-container").style.display = "none";
+        document.getElementById("fun-fact-container").style.display = "block";
+
+        // Populate fun fact content
+        document.getElementById("fun-fact-text").innerText = currentQuizData.fact;
+        document.getElementById("fun-fact-image").src = currentQuizData.image;
+        document.getElementById("next-button").addEventListener("click", () => {nextQuestion();});
+      }
+    }
     function showResult() {
+      document.getElementById('fun-fact-container').style.display = 'none'; 
       document.getElementById('quiz').style.display = 'none';
       const resultDiv = document.getElementById('result');
       resultDiv.style.display = 'block';
-
       const sortedResults = Object.entries(scores).sort((a, b) => b[1] - a[1]);
       const topResult = sortedResults[0][0];
       resultCharacter = resultMap[topResult];
