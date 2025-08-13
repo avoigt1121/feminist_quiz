@@ -1,182 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Which Feminist Are You?</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #fff0f5;
-      margin: 0;
-      padding: 2rem;
-      text-align: center;
-    }
-    .quiz-container {
-      max-width: 600px;
-      margin: auto;
-      background: #ffffff;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    .question {
-      margin-bottom: 1.5rem;
-    }
-    .question-images {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .question-images img {
-      width: 200px;
-      height: auto;
-      border-radius: 10px;
-      border: 2px solid #ff69b4;
-    }
-    .options button, .retake-btn, .start-btn, .submit-name-btn {
-      display: block;
-      margin: 0.5rem auto;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 10px;
-      background-color: #ff69b4;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .result {
-      display: none;
-    }
-    .character-images {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 2rem;
-      gap: 1rem;
-    }
-    .character-images img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid #ff69b4;
-    }
-    .leaderboard-container {
-      background-color: #ffe4ec;
-      padding: 1.5rem;
-      margin-top: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
-      text-align: center;
-    }
-    .leaderboard-container h3 {
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-      color: #d63384;
-    }
-    .leaderboard-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .leaderboard-list li {
-      background-color: #fff0f5;
-      margin: 0.5rem 0;
-      padding: 0.75rem 1rem;
-      border-radius: 10px;
-      color: #c71585;
-      font-weight: bold;
-      font-size: 1rem;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    }
-    #next-button {
-      margin-top: 1rem;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 10px;
-      background-color: #ff69b4;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    #fun-fact-container {
-  background: #fff0f5;
-  padding: 2rem;
-  max-width: 600px;
-  margin: 2rem auto;
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-#fun-fact-heading {
-  margin-top: 0;
-  color: #d63384;
-  font-size: 1.5rem;
-}
-body {
-  overflow-x: hidden; /* Prevent horizontal scrollbar */
-}
-#next-button {
-  transition: transform 0.2s;
-}
-
-#next-button:hover {
-  transform: scale(1.05);
-}
-
-#fun-fact-container img {
-  border-radius: 10px;
-  max-width: 100%;
-  height: auto;
-  border: 2px solid #ff69b4;
-  margin-top: 1rem;
-}
-
-
-#next-button:hover {
-  background-color: #ff85c1;
-}
-#landing p.intro-text {
-  max-width: 500px;
-  margin: 1rem auto;
-  color: #a33f7f;
-  font-style: italic;
-  font-size: 1.1rem;
-}
-
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Which Feminist Are You?</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff0f5;
+    margin: 0;
+    padding: 2rem;
+    text-align: center;
+    overflow-x: hidden;
+  }
+  .quiz-container {
+    max-width: 600px;
+    margin: auto;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+  .question {
+    margin-bottom: 1.5rem;
+  }
+  .question-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .question-images img {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #ff69b4;
+  }
+  .options button, .retake-btn, .start-btn, .submit-name-btn {
+    display: block;
+    margin: 0.5rem auto;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff69b4;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .result {
+    display: none;
+  }
+  .character-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+  .character-images img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ff69b4;
+  }
+  #next-button {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff69b4;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  #next-button:hover {
+    background-color: #ff85c1;
+    transform: scale(1.05);
+  }
+  #fun-fact-container {
+    background: #fff0f5;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  #fun-fact-heading {
+    margin-top: 0;
+    color: #d63384;
+    font-size: 1.5rem;
+  }
+  #fun-fact-container img {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ff69b4;
+    margin-top: 1rem;
+  }
+  #landing p.intro-text {
+    max-width: 500px;
+    margin: 1rem auto;
+    color: #a33f7f;
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+</style>
 </head>
 <body>
-  <div id="landing">
-    <h1>Which Feminist Are You?</h1>
-    <p>Take this fun quiz to discover your inner feminist icon!</p>
-    <p style="max-width: 500px; margin: 1rem auto; color: #a33f7f; font-style: italic;">
-      This quiz is designed to celebrate inspiring feminist figures through your own choices and preferences. Although not all these women are strickly considered "feminist", depending on their jobs, roles, or eras, they were all considered influential women who made major changes for women and others during their time in the sun.
-    </p>
-    <p style="max-width: 500px; margin: 1rem auto; color: #a33f7f; font-style: bold;"></p>
-      I hope you have fun learning more about some influential women of the past and present.
 
-      And hopefully, you’ll see which icon aligns best with your personality and values. Click below to start!
-    </p>
-    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
-  </div>
-  <div class="quiz-container" style="display: none;">
-    <div id="quiz" style="display:none;"></div>
-    <div class="result" id="result"></div>
-  </div>
-  <div id="fun-fact-container" style="display: none;">
-    <h2 id="fun-fact-heading">Fun Fact!</h2>
-    <img id="fun-fact-image" src="" alt="Fun Fact Image" style="max-width: 100%; height: auto;">
-    <p id="fun-fact-text"></p>
-    <button id="next-button">Next</button>
-  </div>
-  
-  <script>
+<!-- Landing -->
+<div id="landing">
+  <h1>Which Feminist Are You?</h1>
+  <p>Take this fun quiz to discover your inner feminist icon!</p>
+  <p class="intro-text">
+    This quiz is designed to celebrate inspiring feminist figures through your own choices and preferences. Although not all these women are strictly considered "feminist" depending on their jobs, roles, or eras, they were all considered influential women who made major changes for women and others during their time.
+  </p>
+  <p class="intro-text">
+    I hope you have fun learning more about some influential women of the past and present. Hopefully, you’ll see which icon aligns best with your personality and values. Click below to start!
+  </p>
+  <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+</div>
+
+<!-- Quiz -->
+<div class="quiz-container" style="display: none;">
+  <div id="quiz" style="display:none;"></div>
+  <div class="result" id="result"></div>
+</div>
+
+<!-- Fun Fact -->
+<div id="fun-fact-container" style="display: none;">
+  <h2 id="fun-fact-heading">Fun Fact!</h2>
+  <img id="fun-fact-image" src="" alt="Fun Fact Image">
+  <p id="fun-fact-text"></p>
+  <button id="next-button">Next</button>
+</div>
+
+<script>
     const quizData = [
       {
         type: "question",
@@ -402,7 +365,7 @@ body {
     ];
 
 
-    const resultMap = {
+const resultMap = {
       janeAusten: { name: "Jane Austen", image: "images/jane_austen.jpeg" },
       mayaAngelou: { name: "Maya Angelou", image: "images/maya_angelou.jpeg" },
       angelaDavis: { name: "Angela Davis", image: "images/angela_davis.jpeg" },
@@ -419,225 +382,270 @@ body {
       audreLorde: { name: "Audre Lorde", image: "images/audre_lorde.jpeg" },
       janeGoodall: { name: "Jane Goodall", image: "images/jane_goodall.jpeg" }
     };
-    let currentQuestion = 0;
-    let scores = {};
-    
-function updateLeaderboard() {
-  const container = document.getElementById('leaderboardContainer');
-  container.style.display = 'block';
+const descriptions = {
+  "Amelia Earhart": `<p>You’re adventurous, independent, and unafraid to take risks. Like Amelia, you thrive on pushing boundaries and inspiring others with your courage. 
+  During her life, Earhart embraced celebrity culture and women's rights, and since her disappearance has become a global cultural figure. 
+  She was the first female pilot to fly solo non-stop across the Atlantic Ocean and set many other records, she wrote best-selling books about her flying experiences, 
+  and was instrumental in the formation of the Ninety-Nines, an organization for female pilots. [Wikipedia]</p>
+  <a href="https://en.wikipedia.org/wiki/Amelia_Earhart" target="_blank">Learn more about Amelia →</a>`,
+  "Audre Lorde": `<p>You’re a bold truth-teller and deeply committed to justice. Like Audre, you use your voice to challenge norms and empower others.
+   Audre Lorde was an American writer, professor, philosopher, intersectional feminist, poet and civil rights activist. 
+   She was a self-described \"Black, lesbian, feminist, socialist, mother, warrior, poet\" who dedicated her life and talents to confronting different forms of injustice, 
+   as she believed there could be \"no hierarchy of oppressions\" among \"those who share the goals of liberation and a workable future for our children\". 
+   As a poet, she is well known for technical mastery and emotional expression, as well as her poems that express anger and outrage at civil and 
+   social injustices she observed throughout her life. [Wikipedia] </p>
+   <a href="https://en.wikipedia.org/wiki/Audre_Lorde" target="_blank">Learn more about Audre →</a>`,
+  "Gloria Steinem": `<p>You’re a connector, organizer, and optimist at heart. Like Gloria, you believe in uniting people to create lasting social change. 
+    Gloria Steinem is an American journalist and social-political activist who emerged as a nationally recognized leader of second-wave feminism 
+    in the United States in the late 1960s and early 1970s. [Wikipedia]</p>
+    <a href="https://en.wikipedia.org/wiki/Gloria_Steinem" target="_blank">Learn more about Gloria →</a>`,
+  "Ruth Bader Ginsberg": `<p>You’re principled, detail-oriented, and persistent. Like RBG, you use logic and strategy to dismantle barriers. 
+  RBG was an American lawyer and jurist who served as an associate justice of the Supreme Court of the United States from 1993 until her death in 2020. 
+  Ginsburg was the first Jewish woman and the second woman to serve on the Court, after Sandra Day O'Connor. 
+  During her tenure, Ginsburg authored the majority opinions in several highly important cases. 
+  Later in her tenure, Ginsburg received attention for passionate dissents that reflected liberal views of the law. [Wikipedia]</p>
+  <a href="https://en.wikipedia.org/wiki/RBG" target="_blank">Learn more about Ruth →</a>`,
+  "Maya Angelou": `<p> You are wise, resilient, and endlessly creative. Like Maya Angelou, you understand the power of words to heal, inspire, and ignite change. 
+    Your voice carries strength and compassion, and you lead by example. Maya was an American memoirist, poet, and civil rights activist. 
+    She published seven autobiographies, three books of essays, several books of poetry, and is credited with a list of plays, movies, and television shows spanning over 50 years. 
+    She received dozens of awards and more than 50 honorary degrees. Angelou's series of seven autobiographies focus on her childhood and early adult experiences, 
+    including I Know Why the Caged Bird Sings (1969), tells of her life up to the age of 17 and brought her international recognition and acclaim. 
+    [Wikipedia]</p>
+  <a href="https://en.wikipedia.org/wiki/Maya_Angelou" target="_blank">Learn more about Maya →</a>`,
+  "Angela Davis": `
+    <p>You are fearless in the face of injustice and deeply committed to equality. 
+      Like Angela Davis, you are a bold thinker and tireless activist, unafraid to challenge systems of oppression to make way for a fairer world.
+      Angela is an American Marxist and feminist political activist, philosopher, academic, and author. Davis was a longtime member of the Communist Party USA (CPUSA)
+       and a founding member of the Committees of Correspondence for Democracy and Socialism (CCDS). 
+      She was active in movements such as the Occupy movement and the Boycott, Divestment and Sanctions campaign.[Wikipedia] </p>
+    <p><a href="https://en.wikipedia.org/wiki/Angela_Davis" target="_blank">Learn more about Angela Davis →</a></p>
+  `,
+  "Christine Jorgensen": `
+    <p>You are a pioneer, a trailblazer who opens doors for others just by living authentically. Like Christine Jorgensen, you face change and challenge with grace, 
+      courage, and unapologetic self-expression. Christine was an American actress, singer, recording artist, and transgender activist. 
+      A trans woman, she was the first person to become widely known in the United States for having sex reassignment surgery. [Wikipedia] </p>
+    <p><a href="https://en.wikipedia.org/wiki/Christine_Jorgensen" target="_blank">Learn more about Christine Jorgensen →</a></p>
+  `,
+  "Michelle Obama": `
+    <p>You radiate poise, warmth, and determination. Like Michelle Obama, you believe in empowering others, creating opportunity, 
+      and leading with empathy while never losing your sense of humor and style.
+      Michelle is an American attorney and author who served as the first lady of the United States. Raised on the South Side of Chicago, 
+      Obama is a graduate of Princeton University and Harvard Law School. 
+She worked in big law firms, nonprofits, and as the associate dean of student services at the University of Chicago. 
+Later, she served as vice president for community and external affairs of the University of Chicago Medical Center. 
+Obama campaigned for her husband's 2008 and 2012 presidential campaigns. She was the first African-American woman to serve as first lady. 
+As first lady, Obama worked as an advocate for poverty awareness, education, nutrition, physical activity, and healthy eating. 
+She has written three books, including her New York Times best-selling memoir Becoming (2018) and The Light We Carry (2022). [Wikipedia]</p>
+    <p><a href="https://en.wikipedia.org/wiki/Michelle_Obama" target="_blank">Learn more about Michelle →</a></p>
+  `,
+  "bell hooks": `
+    <p>You see love as a radical force for justice and healing. Like bell hooks, you approach life with deep intellect and a belief that transformative change begins with compassion, 
+      connection, and critical thought. bell hooks was best known for her writings on race, feminism, and class.She used the lower-case spelling of her name to decenter herself 
+      and draw attention to her work instead. The focus of hooks' writing was to explore the intersectionality of race, capitalism, and gender, and what she described as their ability 
+      to produce and perpetuate systems of oppression and class domination. [Wikipedia]
+      </p>
+    <p><a href="https://en.wikipedia.org/wiki/Bell_hooks" target="_blank">Learn more about bell hooks →</a></p>
+  `,
+  "Susan B. Anthony": `
+    <p>You are determined, persistent, and unafraid to speak truth to power. Like Susan B. Anthony, you devote yourself to fairness and equality, 
+      believing that one person’s courage can inspire generations. Susan was an American social reformer and women's rights activist who played a pivotal role in the women's suffrage movement. 
+      Born into a Quaker family committed to social equality, she collected anti-slavery petitions at the age of 17. 
+      In 1856, she became the New York state agent for the American Anti-Slavery Society. In 1851, she met Elizabeth Cady Stanton, 
+      who became her lifelong friend and co-worker in social reform activities, primarily in the field of women's rights.[Wikipedia] </p>
+    <p><a href="https://en.wikipedia.org/wiki/Susan_B._Anthony" target="_blank">Learn more about Susan →</a></p>
+  `,
+  "Rosa Parks": `
+    <p>You are quiet strength personified. Like Rosa Parks, you know that standing your ground — even in small, deliberate moments — can create ripples that change the course of history.
+      She is best known for her refusal to move from her seat on a bus in Montgomery, Alabama, in defiance of Jim Crow racial segregation laws, in 1952, which sparked the Montgomery bus boycott.
+       She is sometimes known as the "mother of the civil rights movement". [Wikipedia]
+      </p>
+    <p><a href="https://en.wikipedia.org/wiki/Rosa_Parks" target="_blank">Learn more about Rosa →</a></p>
+  `,
+  "Marie Curie": `
+    <p>You are curious, brilliant, and tireless in the pursuit of knowledge. Like Marie Curie, you see obstacles as challenges to be solved, 
+      and your discoveries and ideas make the world better for everyone. 
+      Marie was a Polish and naturalised-French physicist and chemist who conducted pioneering research on radioactivity. She was the first woman to win a Nobel Prize, 
+      the first person to win a Nobel Prize twice, and the only person to win a Nobel Prize in two scientific fields. Marie won the 1911 Nobel Prize in Chemistry for her discovery 
+      of the elements polonium and radium, using techniques she invented for isolating radioactive isotopes. Under her direction, the world's first studies were conducted into 
+      the treatment of neoplasms by the use of radioactive isotopes. During World War I, she developed mobile radiography units to provide X-ray services to field hospitals. 
+      </p>
+    <p><a href="https://en.wikipedia.org/wiki/Marie_Curie" target="_blank">Learn more about Marie →</a></p>
+  `,
+  "Eleanor Roosevelt": `
+    <p>You are a compassionate leader and a champion for human rights. Like Eleanor Roosevelt, you believe in lifting up others, speaking truth even when it’s difficult, 
+      and creating change through understanding.
+      Eleanor was an American political figure, diplomat, and activist. Through her travels, public engagement, and advocacy, she largely redefined the role. 
+      She served as a United States delegate to the United Nations General Assembly and took a leading role in designing the text and gaining international support 
+      for the Universal Declaration of Human Rights. President Harry S. Truman later called her the "First Lady of the World" in tribute to her human rights achievements.
+After discovering her husband's affair, both partners started to keep independent agendas, and Eleanor joined the Women's Trade Union League and became active in the New York state Democratic Party.
+After FDR acquired a paralytic illness, Eleanor regularly made public appearances on his behalf; and as first lady, while her husband served as president, she greatly influenced the present 
+scope and future of the role. Roosevelt was, in her time, one of the world's most widely admired and powerful women.
+ Nevertheless, in her early years in the White House she was controversial for her outspokenness, particularly with respect to her promotion of civil rights for African Americans. [Wikipedia]
+      </p>
+    <p><a href="https://en.wikipedia.org/wiki/Eleanor_Roosevelt" target="_blank">Learn more about Eleanor →</a></p>
+  `,
+  "Jane Goodall": `
+    <p>You are deeply empathetic and endlessly curious about the living world. Like Jane Goodall, you understand that every action counts and that kindness toward all creatures can 
+      shape a better future. Jane is an English zoologist, primatologist and anthropologist.
+      She is considered the world's foremost expert on chimpanzees, after 60 years' studying the social and family interactions of wild chimpanzees. 
+      Goodall first went to Gombe Stream National Park in Tanzania to observe its chimpanzees in 1960.
+She is the founder of the Jane Goodall Institute and the Roots & Shoots programme and has worked extensively on conservation and animal welfare issues. 
+As of 2022, she is on the board of the Nonhuman Rights Project.
+In April 2002, she was named a United Nations Messenger of Peace. Goodall is an honorary member of the World Future Council. [Wikipedia]
+      </p>
+    <p><a href="https://en.wikipedia.org/wiki/Jane_Goodall" target="_blank">Learn more about Jane →</a></p>
+  `,
+  "Jane Austen": `
+    <p>You are witty, insightful, and keenly aware of human nature. Like Jane Austen, you see the humor and beauty in life’s social dance,
+       and your words and observations reveal truths others often overlook. Jane was an English novelist known primarily for her six novels, 
+       which implicitly interpret, critique, and comment on the English landed gentry at the end of the 18th century.
+Austen's plots often explore the dependence of women on marriage for the pursuit of favourable social standing and economic security. 
+Her works are implicit critiques of the novels of sensibility of the second half of the 18th century and are part of the transition to 19th-century literary realism.
+Her use of social commentary, realism, wit, and irony have earned her acclaim amongst critics and scholars. [Wikipedia]
+       </p>
+    <p><a href="https://en.wikipedia.org/wiki/Jane_Austen" target="_blank">Learn more about Jane Austen →</a></p>
+  `
+};
+let currentQuestion = 0;
+let scores = {};
+let quizResult = null;
 
-  const playCount = parseInt(localStorage.getItem('quizPlayCount') || '0', 10);
-  const grouped = {};
+function showQuestion() {
+  const quiz = document.getElementById('quiz');
+  quiz.innerHTML = '';
 
-  // Group by character name
-  leaderboard.forEach(entry => {
-    if (!grouped[entry.result]) grouped[entry.result] = [];
-    grouped[entry.result].push(entry.name);
-  });
+  if (currentQuestion >= quizData.length) return showResult();
 
-  // Sort by popularity
-  const sorted = Object.entries(grouped).sort((a, b) => b[1].length - a[1].length);
+  const q = quizData[currentQuestion];
 
-  const html = sorted.map(([charKey, names]) => {
-    const char = Object.values(resultMap).find(c => c.name === charKey);
-    const imgHTML = char ? `<img src="${char.image}" alt="${char.name}" style="width:40px;height:40px;border-radius:50%;margin-right:10px;">` : '';
-    const nameList = names.map(name => `<li>${name}</li>`).join('');
-    return `
-      <li>
-        <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
-          ${imgHTML}<strong>${charKey} (${names.length})</strong>
-        </div>
-        <ul style="padding-left: 2rem; text-align: left;">${nameList}</ul>
-      </li>
-    `;
-    }).join('');
-
-  container.innerHTML = `
-    <h3>Leaderboard</h3>
-    <p><strong>Total Plays:</strong> ${playCount}</p>
-    <ul class="leaderboard-list" style="text-align:left;">${html}</ul>
-  `;
+  if (q.type === "funFact") {
+    document.querySelector(".quiz-container").style.display = "none";
+    document.getElementById("fun-fact-container").style.display = "block";
+    document.getElementById("fun-fact-text").innerText = q.fact;
+    document.getElementById("fun-fact-image").src = q.images[0] || '';
+    document.getElementById("next-button").onclick = () => {
+      currentQuestion++;
+      showQuestion();
+    };
+    return;
   }
-    let leaderboard = JSON.parse(localStorage.getItem('feministLeaderboard') || '[]');
-    let resultCharacter = null;
-    
-    function showQuestion() {
-      const quiz = document.getElementById('quiz');
-      quiz.innerHTML = '';
-      
-      if (currentQuestion >= quizData.length) return showResult();
 
-      const q = quizData[currentQuestion];
+  document.getElementById("quiz").style.display = "block";
+  document.getElementById("fun-fact-container").style.display = "none";
+  document.querySelector(".quiz-container").style.display = "block";
 
-      if (q.type === "funFact") {
-          document.querySelector(".quiz-container").style.display = "none";
-          document.getElementById("fun-fact-container").style.display = "block";
-          document.getElementById("fun-fact-text").innerText = q.fact;
-          document.getElementById("fun-fact-image").src = q.images[0] || '';
-          document.getElementById("next-button").onclick = () => {
-            currentQuestion++;
-            showQuestion();
-        };
-        return; 
-      } 
+  const questionEl = document.createElement('div');
+  questionEl.className = 'question';
+  questionEl.textContent = q.question;
+  quiz.appendChild(questionEl);
 
-      // Else, render a question
-      document.getElementById("quiz").style.display = "block";
-      document.getElementById("fun-fact-container").style.display = "none";
-      document.querySelector(".quiz-container").style.display = "block";  // FIXED LINE HERE
+  if (q.images?.length) {
+    const imgDiv = document.createElement('div');
+    imgDiv.className = 'question-images';
+    q.images.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      imgDiv.appendChild(img);
+    });
+    quiz.appendChild(imgDiv);
+  }
 
-
-      const questionEl = document.createElement('div');
-      questionEl.className = 'question';
-      questionEl.textContent = q.question;
-      quiz.appendChild(questionEl);
-
-      if (q.images && q.images.length > 0) {
-        const imageContainer = document.createElement('div');
-        imageContainer.className = 'question-images';
-        q.images.forEach(src => {
-          const img = document.createElement('img');
-          img.src = src;
-          imageContainer.appendChild(img);
-        });
-        quiz.appendChild(imageContainer);
-      }
-
-      const optionsDiv = document.createElement('div');
-      optionsDiv.className = 'options';
-      q.options.forEach((opt, idx) => {
-        const button = document.createElement('button');
-        button.textContent = opt;
-        button.onclick = () => {
-          const keys = q.scores[idx];
-          keys.forEach(key => {
-            scores[key] = (scores[key] || 0) + 1;
-          });
-          currentQuestion++;
-          showQuestion();
-        };
-        optionsDiv.appendChild(button);
+  const optionsDiv = document.createElement('div');
+  optionsDiv.className = 'options';
+  q.options.forEach((opt, idx) => {
+    const button = document.createElement('button');
+    button.textContent = opt;
+    button.onclick = () => {
+      q.scores[idx].forEach(key => {
+        scores[key] = (scores[key] || 0) + 1;
       });
-      quiz.appendChild(optionsDiv);
-    }
-    function showResult() {
-      document.getElementById('fun-fact-container').style.display = 'none'; 
-      document.getElementById('quiz').style.display = 'none';
-      document.querySelector('.quiz-container').style.display = 'block';
-      document.getElementById('landing').style.display = 'none';
-
-      const resultDiv = document.getElementById('result');
-      console.log("Scores at result:", scores);
-
-      resultDiv.style.display = 'block';
-
-      const sortedResults = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-
-      if (sortedResults.length === 0) {
-        resultDiv.innerHTML = `
-          <h2>No results to display.</h2>
-          <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
-        `;
-        return;
-      }
-
-      const topResult = sortedResults[0][0];
-      resultCharacter = resultMap[topResult];
-      if (!resultCharacter) {
-        resultDiv.innerHTML = `<h2>Sorry, no matching result found.</h2>`;
-        return;
-      }
-      const additionalImgs = sortedResults.slice(1, 4)
-        .filter(([key]) => resultMap[key])
-        .map(([key]) => `<img src="${resultMap[key].image}" alt="${resultMap[key].name}" title="${resultMap[key].name}" />`)
-        .join('');
-
-      const leaderboardEntries = leaderboard.map(entry => `<li><strong>${entry.name}</strong>: ${entry.result}</li>`).join('');
-
-      resultDiv.innerHTML = `
-        <h2>You are ${resultCharacter.name}!</h2>
-        <img src="${resultCharacter.image}" alt="${resultCharacter.name}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
-        <div class="character-images">${additionalImgs}</div>
-        <input type="text" id="userNameInput" placeholder="Enter your name" style="margin-top: 1rem; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
-        <button class="submit-name-btn" onclick="submitName()">Submit to Leaderboard</button>
-        <div id="leaderboardContainer" class="leaderboard-container" style="display:none;"></div>
-        <button class="submit-name-btn" id="deleteEntryBtn" style="display:none;" onclick="deleteMyEntry()">Delete My Entry</button>
-        <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
-      `;
+      currentQuestion++;
+      setTimeout(showQuestion, 250);
+    };
+    optionsDiv.appendChild(button);
+  });
+  quiz.appendChild(optionsDiv);
 }
 
-    function submitName() {
-      const nameInput = document.getElementById('userNameInput');
-      const name = nameInput.value.trim();
-      if (!name) return alert("Please enter your name.");
-    
-      // Delete previous entries with the same name
-      leaderboard = leaderboard.filter(entry => entry.name !== name);
-    
-      // Add new entry
-      leaderboard.push({ name: name, result: resultCharacter.name });
-      localStorage.setItem('feministLeaderboard', JSON.stringify(leaderboard));
-    
-      // Increment quiz play count
-      let count = parseInt(localStorage.getItem('quizPlayCount') || '0', 10);
-      count++;
-      localStorage.setItem('quizPlayCount', count);
-    
-      updateLeaderboard();
-    }
+function showResult() {
+  document.getElementById('fun-fact-container').style.display = 'none';
+  document.getElementById('quiz').style.display = 'none';
+  document.querySelector('.quiz-container').style.display = 'block';
+  document.getElementById('landing').style.display = 'none';
 
-    function startQuiz() {
-      document.getElementById('landing').style.display = 'none';
-      document.getElementById('quiz').style.display = 'block';
-      document.querySelector('.quiz-container').style.display = 'block';
-      currentQuestion = 0;
-      scores = {};
-      showQuestion();
+  const resultDiv = document.getElementById('result');
+  resultDiv.style.display = 'block';
+
+  const sortedResults = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  if (!sortedResults.length) {
+    resultDiv.innerHTML = `<h2>No results.</h2><button class="retake-btn" onclick="restartQuiz()">Retake</button>`;
+    return;
+  }
+
+  const topKey = sortedResults[0][0];
+  quizResult = resultMap[topKey]?.name || "Unknown";
+
+  resultDiv.innerHTML = `
+    <h2>You are ${quizResult}!</h2>
+    <img src="${resultMap[topKey].image}" alt="${quizResult}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
+    <input type="text" id="userNameInput" placeholder="Enter your name" style="margin-top: 1rem; padding: 0.5rem;" />
+    <button class="submit-name-btn" onclick="submitName()">Submit My Result</button>
+    <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
+
+    <p>${descriptions[quizResult]}</p>
+    <h3>See how others scored:</h3>
+    <iframe 
+      src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQSYqHNlW9fyXlddSqyO-kLmkVKg6lDJIJ0IrOd60CmW6iHwJxredNlfGR7kdcGH7KfjrDq9gjhZ_dL/pubchart?oid=2030912019&format=interactive" 
+      width="600" height="400" frameborder="0" scrolling="no">
+    </iframe>
+    <iframe 
+      src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQSYqHNlW9fyXlddSqyO-kLmkVKg6lDJIJ0IrOd60CmW6iHwJxredNlfGR7kdcGH7KfjrDq9gjhZ_dL/pubhtml?gid=956770161&single=true" 
+      width="600" height="400" frameborder="0" scrolling="no">
+    </iframe>
+    `;
 }
 
-    window.onload = function() {
-      document.getElementById('quiz').style.display = 'none';
-      document.getElementById('result').style.display = 'none';
-      document.getElementById('landing').style.display = 'block';
-    }
-    
-    function restartQuiz() {
-      const nameToDelete = prompt("Enter your name to remove it from the leaderboard before retaking the quiz, if you want:");
-    
-      if (nameToDelete) {
-        leaderboard = leaderboard.filter(entry => entry.name.toLowerCase() !== nameToDelete.toLowerCase());
-        localStorage.setItem('feministLeaderboard', JSON.stringify(leaderboard));
-      }
-    
-      currentQuestion = 0;
-      scores = {};
-      document.getElementById('quiz').style.display = 'block';
-      document.querySelector(".quiz-container").style.display = "block";
-      document.getElementById('result').style.display = 'none';
-      showQuestion();
-}
-    function deleteMyEntry() {
-      if (!submittedName) return;
-    
-      leaderboard = leaderboard.filter(entry => entry.name.toLowerCase() !== submittedName.toLowerCase());
-      localStorage.setItem('feministLeaderboard', JSON.stringify(leaderboard));
-    
-      // Refresh leaderboard
-      const leaderboardHTML = leaderboard.map(entry => `<li><strong>${entry.name}</strong>: ${entry.result}</li>`).join('');
-      const container = document.getElementById('leaderboardContainer');
-      container.innerHTML = `
-        <h3>Leaderboard</h3>
-        <ul class="leaderboard-list">${leaderboardHTML}</ul>
-      `;
-    
-      // Hide delete button again
-      document.getElementById('deleteEntryBtn').style.display = 'none';
+function submitName() {
+  const name = document.getElementById('userNameInput').value.trim();
+  if (!name) return alert("Please enter your name.");
+
+  submitToGoogleForm(name, quizResult);
 }
 
-    window.startQuiz = startQuiz;
-    window.restartQuiz = restartQuiz;
-    window.submitName = submitName;
-  </script>
+function submitToGoogleForm(name, score) {
+  const formURL = 'https://docs.google.com/forms/d/1Io0rPWXULCe-xdPFYlGXF5fhT3GFvIgi4oXJtZFJp68/formResponse';
+  const formData = new FormData();
+  formData.append('entry.1706242873', name);
+  formData.append('entry.1853695294', score);
+
+  fetch(formURL, { method: 'POST', mode: 'no-cors', body: formData })
+    .then(() => alert("Result submitted!"))
+    .catch(err => console.error("Submission error:", err));
+}
+
+function startQuiz() {
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  document.querySelector('.quiz-container').style.display = 'block';
+  currentQuestion = 0;
+  scores = {};
+  showQuestion();
+}
+
+function restartQuiz() {
+  currentQuestion = 0;
+  scores = {};
+  document.getElementById('quiz').style.display = 'block';
+  document.querySelector(".quiz-container").style.display = "block";
+  document.getElementById('result').style.display = 'none';
+  showQuestion();
+}
+
+window.onload = () => {
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('landing').style.display = 'block';
+};
+</script>
 </body>
-
 </html>

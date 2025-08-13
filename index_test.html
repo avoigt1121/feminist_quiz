@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Which Feminist Are You?</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 1.5rem;
+    }
+    .question-images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .question-images img {
+      width: 200px;
+      height: auto;
+      border-radius: 10px;
+      border: 2px solid #ff69b4;
+    }
+    .options button, .retake-btn, .start-btn, .submit-name-btn {
+      display: block;
+      margin: 0.5rem auto;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff69b4;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .result {
+      display: none;
+    }
+    .character-images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+    .character-images img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #ff69b4;
+    }
+    #next-button {
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff69b4;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    #fun-fact-container {
+  background: #fff0f5;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#fun-fact-heading {
+  margin-top: 0;
+  color: #d63384;
+  font-size: 1.5rem;
+}
+body {
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
+}
+#next-button {
+  transition: transform .2s;
+}
+
+#next-button:hover {
+  transform: scale(1.05);
+}
+
+#fun-fact-container img {
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ff69b4;
+  margin-top: 1rem;
+}
+
+
+#next-button:hover {
+  background-color: #ff85c1;
+}
+#landing p.intro-text {
+  max-width: 500px;
+  margin: 1rem auto;
+  color: #a33f7f;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+  </style>
+</head>
+<body>
+  <div id="landing">
+    <h1>Which Feminist Are You?</h1>
+    <p>Take this fun quiz to discover your inner feminist icon!</p>
+    <p style="max-width: 500px; margin: 1rem auto; color: #a33f7f; font-style: italic;">
+      This quiz is designed to celebrate inspiring feminist figures through your own choices and preferences. Although not all these women are strickly considered "feminist", depending on their jobs, roles, or eras, they were all considered influential women who made major changes for women and others during their time in the sun.
+    </p>
+    <p style="max-width: 500px; margin: 1rem auto; color: #a33f7f; font-style: bold;"></p>
+      I hope you have fun learning more about some influential women of the past and present.
+
+      And hopefully, you’ll see which icon aligns best with your personality and values. Click below to start!
+    </p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+  <div class="quiz-container" style="display: none;">
+    <div id="quiz" style="display:none;"></div>
+    <div class="result" id="result"></div>
+  </div>
+  <div id="fun-fact-container" style="display: none;">
+    <h2 id="fun-fact-heading">Fun Fact!</h2>
+    <img id="fun-fact-image" src="" alt="Fun Fact Image" style="max-width: 100%; height: auto;">
+    <p id="fun-fact-text"></p>
+    <button id="next-button">Next</button>
+  </div>
+  
+  <script>
+    const quizData = [
+      {
+        type: "question",
+        question: "What’s your ideal weekend activity?",
+        options: [
+          "Reading or writing",
+          "Attending a protest",
+          "Traveling or adventuring",
+          "Volunteering in your community"
+        ],
+        scores: [
+          ["janeAusten", "mayaAngelou"],
+          ["angelaDavis", "gloriaSteinem"],
+          ["ameliaEarhart", "christineJorgensen"],
+          ["michelleObama", "ruthGinsburg"]
+        ],
+        images: ["images/protesting.png"]
+      },
+      {
+        type: "question",
+        question: "What's your favorite way to inspire change?",
+        options: ["through writing", "through protest", "through science", "through leadership", "through nature"],
+        scores: [
+          ["janeAusten", "bellHooks", "mayaAngelou", "audreLorde"],
+          ["angelaDavis", "susanAnthony", "mayaAngelou", "gloriaSteinem", "rosaParks"],
+          ["marieCurie"],
+          ["eleanorRoosevelt", "michelleObama", "ruthGinsburg", "christineJorgensen"],
+          ["janeGoodall", "ameliaEarhart"]
+        ],
+        images: ["images/change.png"]
+      },
+            // New Fun Fact Page
+      {
+        type: "funFact",
+        fact: "Susan B. Anthony was arrested for voting in 1872! Lots has changed since then :)",
+        images: ["images/susan-anthony-voting.jpg"]
+      },      
+      {
+        type: "question",
+        question: "Which quote speaks to you most?",
+        options: [
+          "I am no bird; and no net ensnares me.",
+          "The one person who will never leave us, whom we will never lose, is ourself.",
+          "No one can make you feel inferior without your consent.",
+          "Radical simply means \'grasping things at the root.\'",
+          "The only expectations I need to live up to are my own.",
+          "I am not free while any woman is unfree, even when her shackles are very different from my own.",
+          "Nothing in life is to be feared, it is only to be understood."
+        ],
+        scores: [
+          ["janeAusten"],
+          ["bellHooks"],
+          ["eleanorRoosevelt"],
+          ["angelaDavis"],
+          ["michelleObama"],
+          ["audreLorde"],
+          ["marieCurie"]
+        ],
+        images: ["images/readingquotes.png"]
+      },
+      {
+        type: "question",
+        question: "pick a power outfit:",
+        options: ["a flying suit", "a judicial robe", "a bold scarf and glasses", "a microphone and stage", "a fur coat, glamorous jewelry, and a full mug", "a lab coat"],
+        scores: [
+          ["ameliaEarhart"],
+          ["ruthGinsburg"],
+          ["gloriaSteinem"],
+          ["mayaAngelou"],
+          ["christineJorgensen"],
+          ["marieCurie"]
+        ],
+        images: ["images/outfits.png"]
+      },
+      {
+        type: "funFact",
+        fact: "Michelle Obama challenged the traditional notion that women need to wear high heels to be stylish by often opting for kitten heels, ballet flats, and even sneakers when appropriate.",
+        images: ["images/michelle_shoes.jpeg"]
+      },  
+      {
+        type: "question",
+        question: "what do you think of MEN? (not us failing the bechdel test)",
+        options: [
+          "i love my lil husband/bf/fiance",
+          "ehhh... i tried that a few times.",
+          "literally,, ew",
+          "much prefer women; men have their uses though"
+        ],
+        scores: [
+          ["ameliaEarhart", "michelleObama", "ruthGinsburg", "eleanorRoosevelt"],
+          ["rosaParks", "janeGoodall", "mayaAngelou", "gloriaSteinem"],
+          ["angelaDavis", "christineJorgensen"],
+          ["susanAnthony", "bellHooks", "janeAusten", "audreLorde", "eleanorRoosevelt"]
+        ],
+        images: ["images/men.png"]
+      },
+      {
+        type: "funFact",
+        fact: "Amelia Earhart was suspected of having affairs with both Eleanor Roosevelt and Gene Vidal, though she was married to a man. Her classic lesbian look, however, is attributed to the non-traditional clothing her mother dressed her in as a child, and her attempt to appear masculine to her piloting peers.",
+        images: ["images/amelia_eleanor.webp"]
+      },  
+      {
+        type: "question",
+        question: "Which color best represents your personality?",
+        options: ["Bold Red", "Peaceful Blue", "Creative Purple", "Sunny Yellow"],
+        scores: [
+          ["angelaDavis", "rosaParks"],
+          ["eleanorRoosevelt", "ruthGinsburg"],
+          ["janeAusten", "mayaAngelou"],
+          ["michelleObama", "ameliaEarhart"]
+        ],
+        images: ["images/color.png"]
+      },
+      {
+        type: "question",
+        question: "how do you usually work through a problem?",
+        options: [
+          "call all my friends... let's get this done TOGETHER!",
+          "alert the presses... there'll be a novel or article coming soon",
+          "create a hypothesis, and test it out",
+          "trial and error"
+        ],
+        scores: [
+          ["susanAnthony", "michelleObama", "gloriaSteinem", "eleanorRoosevelt"],
+          ["janeAusten", "bellHooks", "mayaAngelou"],
+          ["marieCurie", "janeGoodall"],
+          ["ruthGinsburg", "ameliaEarhart"]
+        ],
+        images:["images/solvingproblems.png"]
+      },
+      {
+        type: "question",
+        question: "what is your favorite hobby?",
+        options: [
+          "taking a film camera out to find neat photo ops",
+          "cozying up on the couch to KNIT!!!",
+          "writing in my journal, notes app, or word docs",
+          "anything outside, lets go look for frogs or play sports!",
+          "bitch, who has time for hobbies?"
+        ],
+        scores: [
+          ["christineJorgensen"],
+          ["michelleObama"],
+          ["audreLorde", "angelaDavis", "janeAusten", "bellHooks"],
+          ["ameliaEarhart", "ruthGinsburg", "janeGoodall"],
+          ["marieCurie", "gloriaSteinem"]
+        ],
+        images:["images/hobbies.png"]
+      },
+      {
+        type: "question",
+        question: "What’s your go-to comfort food on a bad day?",
+        options: [
+          "a latte and a muffin:)",
+          "pizza... or anything cheesy",
+          "peanut butter pancakes... who doesn't love brunch?",
+          "porterhouse steak and coffee... the basics",
+          "fruit, veggies, mushrooms, anything hearty. Well, anything vegan, that is.",
+          "whatever is available to eat, I just eat to survive. bread and butter is fine."
+        ],
+        scores: [
+          ["gloriaSteinem"],
+          ["michelleObama"],
+          ["rosaParks"],
+          ["susanAnthony"],
+          ["janeGoodall"],
+          ["marieCurie"]
+        ],
+        images:["images/foods.webp"]
+      },
+      {
+        type: "funFact",
+        fact: "Jane Goodall is vegan and has a Vegan-inspired cookbook. \“Vegan food used to be tasteless and awful,\” she says, but today \“really good vegan cooking is some of the best I've ever tasted.\”",
+        images: ["images/goodall_cook.jpeg"]
+      },  
+      {
+        type: "question",
+        question: "If you were an animal, what would you be?",
+        options: [
+          "a wolf",
+          "a butterfly",
+          "a .... chimp?",
+          "a lion",
+          "a unicorn"
+        ],
+        scores: [
+          ["rosaParks"],
+          ["christineJorgensen"],
+          ["janeGoodall"],
+          ["susanAnthony"],
+          ["audreLorde"]
+        ],
+        images:["images/animals.jpeg"]
+      },
+      {
+        type: "question",
+        question: "What movie/play universe would you most like to live in?",
+        options: [
+          "Little Women",
+          "Hidden Figures",
+          "The Phantom of the Opera",
+          "Tarzan",
+          "Breakfast at Tiffany's",
+          "Fried Green Tomatoes",
+          "Malcolm X"
+        ],
+        scores: [
+          ["susanAnthony"],
+          ["rosaParks"],
+          ["marieCurie"],
+          ["janeGoodall"],
+          ["christineJorgensen"],
+          ["bellHooks"],
+          ["audreLorde"]
+        ],
+        images:["images/fried2.jpg"]
+      },
+      {
+        type: "funFact",
+        fact: "When Taraji P. Henson signed on for the lead role, she met with Katherine Johnson, who was 98 years old, to discuss the character she was about to portray.",
+        images: ["images/hidden_figures.webp"]
+      },  
+    ];
+
+
+    const resultMap = {
+      janeAusten: { name: "Jane Austen", image: "images/jane_austen.jpeg" },
+      mayaAngelou: { name: "Maya Angelou", image: "images/maya_angelou.jpeg" },
+      angelaDavis: { name: "Angela Davis", image: "images/angela_davis.jpeg" },
+      gloriaSteinem: { name: "Gloria Steinem", image: "images/gloria-steinem.jpeg" },
+      ameliaEarhart: { name: "Amelia Earhart", image: "images/amelia.jpeg" },
+      christineJorgensen: { name: "Christine Jorgensen", image: "images/christine_jorgensen.jpeg" },
+      michelleObama: { name: "Michelle Obama", image: "images/michelle.jpeg" },
+      ruthGinsburg: { name: "Ruth Bader Ginsburg", image: "images/rbg.jpeg" },
+      bellHooks: { name: "bell hooks", image: "images/bellhooks.jpeg" },
+      susanAnthony: { name: "Susan B. Anthony", image: "images/susan-anthon.jpeg" },
+      rosaParks: { name: "Rosa Parks", image: "images/rosa_parks.jpeg" },
+      marieCurie: { name: "Marie Curie", image: "images/marie_curie.jpeg" },
+      eleanorRoosevelt: { name: "Eleanor Roosevelt", image: "images/eleanor_roosevelt.jpeg" },
+      audreLorde: { name: "Audre Lorde", image: "images/audre_lorde.jpeg" },
+      janeGoodall: { name: "Jane Goodall", image: "images/jane_goodall.jpeg" }
+    };
+    let currentQuestion = 0;
+    let scores = {};
+
+    function showQuestion() {
+      const quiz = document.getElementById('quiz');
+      quiz.innerHTML = '';
+      
+      if (currentQuestion >= quizData.length) return showResult();
+
+      const q = quizData[currentQuestion];
+
+      if (q.type === "funFact") {
+          document.querySelector(".quiz-container").style.display = "none";
+          document.getElementById("fun-fact-container").style.display = "block";
+          document.getElementById("fun-fact-text").innerText = q.fact;
+          document.getElementById("fun-fact-image").src = q.images[0] || '';
+          document.getElementById("next-button").onclick = () => {
+            currentQuestion++;
+            showQuestion();
+        };
+        return; 
+      } 
+
+      // Else, render a question
+      document.getElementById("quiz").style.display = "block";
+      document.getElementById("fun-fact-container").style.display = "none";
+      document.querySelector(".quiz-container").style.display = "block";  // FIXED LINE HERE
+
+
+      const questionEl = document.createElement('div');
+      questionEl.className = 'question';
+      questionEl.textContent = q.question;
+      quiz.appendChild(questionEl);
+
+      if (q.images && q.images.length > 0) {
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'question-images';
+        q.images.forEach(src => {
+          const img = document.createElement('img');
+          img.src = src;
+          imageContainer.appendChild(img);
+        });
+        quiz.appendChild(imageContainer);
+      }
+
+      const optionsDiv = document.createElement('div');
+      optionsDiv.className = 'options';
+      q.options.forEach((opt, idx) => {
+        const button = document.createElement('button');
+        button.textContent = opt;
+        button.onclick = () => {
+          const keys = q.scores[idx];
+          keys.forEach(key => {
+            scores[key] = (scores[key] || 0) + 1;
+          });
+          currentQuestion++;
+          setTimeout(() => {
+            showQuestion();
+          }, 250);
+        };
+        optionsDiv.appendChild(button);
+      });
+      quiz.appendChild(optionsDiv);
+    }
+    function showResult() {
+      document.getElementById('fun-fact-container').style.display = 'none'; 
+      document.getElementById('quiz').style.display = 'none';
+      document.querySelector('.quiz-container').style.display = 'block';
+      document.getElementById('landing').style.display = 'none';
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      const sortedResults = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+
+      if (sortedResults.length === 0) {
+        resultDiv.innerHTML = `
+          <h2>No results to display.</h2>
+          <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
+        `;
+        return;
+      }
+
+      const topResult = sortedResults[0][0];
+      resultCharacter = resultMap[topResult];
+      if (!resultCharacter) {
+        resultDiv.innerHTML = `<h2>Sorry, no matching result found.</h2>`;
+        return;
+      }
+      const additionalImgs = sortedResults.slice(1, 4)
+        .filter(([key]) => resultMap[key])
+        .map(([key]) => `<img src="${resultMap[key].image}" alt="${resultMap[key].name}" title="${resultMap[key].name}" />`)
+        .join('');
+      resultDiv.innerHTML = `
+        <h2>You are ${resultCharacter.name}!</h2>
+        <img src="${resultCharacter.image}" alt="${resultCharacter.name}" style="max-width:100%; border-radius: 10px; margin-top: 1rem;" />
+        <div class="character-images">${additionalImgs}</div>
+        <input type="text" id="userNameInput" placeholder="Enter your name" style="margin-top: 1rem; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
+        <button class="submit-name-btn" id="deleteEntryBtn" style="display:none;" onclick="deleteMyEntry()">Delete My Entry</button>
+        <button class="retake-btn" onclick="restartQuiz()">Retake Quiz</button>
+      `;
+}
+
+    function submitName() {
+      const nameInput = document.getElementById('userNameInput');
+      const name = nameInput.value.trim();
+      if (!name) return alert("Please enter your name.");
+    }
+
+    function startQuiz() {
+      document.getElementById('landing').style.display = 'none';
+      document.getElementById('quiz').style.display = 'block';
+      document.querySelector('.quiz-container').style.display = 'block';
+      currentQuestion = 0;
+      scores = {};
+      showQuestion();
+}
+
+    window.onload = function() {
+      document.getElementById('quiz').style.display = 'none';
+      document.getElementById('result').style.display = 'none';
+      document.getElementById('landing').style.display = 'block';
+    }
+    
+    function restartQuiz() {
+      currentQuestion = 0;
+      scores = {};
+      document.getElementById('quiz').style.display = 'block';
+      document.querySelector(".quiz-container").style.display = "block";
+      document.getElementById('result').style.display = 'none';
+      showQuestion();
+}
+function submitToGoogleForm(name, score) {
+  const formURL = 'https://docs.google.com/forms/d/1Io0rPWXULCe-xdPFYlGXF5fhT3GFvIgi4oXJtZFJp68/formResponse';
+  const formData = new FormData();
+  formData.append('entry.1706242873', name);   // Replace with your actual field ID
+  formData.append('entry.1853695294', score);  // Replace with your actual field ID
+
+  fetch(formURL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: formData
+  }).then(() => {
+    console.log("Submitted to Google Sheet!");
+  }).catch(err => {
+    console.error("Submission error:", err);
+  });
+}
+function submitName() {
+  const nameInput = document.getElementById('userNameInput');
+  const name = nameInput.value.trim();
+  if (!name) return alert("Please enter your name.");
+  
+  submitToGoogleForm(name, quizResult);
+}
+function openPrefilledForm(result) {
+  const resultField = 'entry.1853695294'; // Result field
+  const nameField = 'entry.1706242873';
+  const baseURL = 'https://docs.google.com/forms/d/e/1Io0rPWXULCe-xdPFYlGXF5fhT3GFvIgi4oXJtZFJp68/viewform?usp=pp_url';
+
+  const prefilledURL = `${baseURL}&${resultField}=${encodeURIComponent(result)}`;
+  window.open(prefilledURL, '_blank'); // opens in a new tab
+}
+
+const quizResult = getQuizResult();  // your result logic
+const nameParam = ""; // leave blank for user to fill in
+const scoreParam = encodeURIComponent(resultText); // your quiz result
+const formURL = `https://docs.google.com/forms/d/e/1Io0rPWXULCe-xdPFYlGXF5fhT3GFvIgi4oXJtZFJp68/viewform?usp=pp_url&entry.1706242873=${nameParam}&entry.1853695294=${scoreParam}`;
+
+// Call after showing result
+const playerScore = calculateScore(); // however you define it
+submitToGoogleForm(playerName, playerScore);
+    window.startQuiz = startQuiz;
+    window.restartQuiz = restartQuiz;
+    window.submitName = submitName;
+  </script>
+</body>
+
+</html>
