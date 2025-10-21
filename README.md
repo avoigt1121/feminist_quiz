@@ -1,6 +1,3 @@
-# feminist_quiz
-
-That's a fun project\! It's a great example of a simple but engaging web application. Here is a professional and comprehensive `README.md` that you can use as a template.
 
 -----
 
